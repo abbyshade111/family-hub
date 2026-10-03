@@ -26,6 +26,7 @@ NOTICES = {
     "confirmed": "Thanks, confirmed. You have 10 minutes to make changes that need it.",
     "admin-needs-2fa": "Family admins need an authenticator app. Set one up below to use family settings.",
     "2fa-off": "Authenticator app turned off.",
+    "session-ended": "You've been signed out, perhaps after being away for a while. Please sign in again.",
 }
 
 ERROR_MESSAGES = {

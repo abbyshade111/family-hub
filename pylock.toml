@@ -25,14 +25,14 @@ sha256 = "255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360"
 
 [[packages]]
 name = "flask"
-version = "3.1.2"
+version = "3.1.3"
 
 [[packages.wheels]]
-name = "flask-3.1.2-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/ec/f9/7f9263c5695f4bd0023734af91bedb2ff8209e8de6ead162f35d8dc762fd/flask-3.1.2-py3-none-any.whl"
+name = "flask-3.1.3-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/7f/9c/34f6962f9b9e9c71f6e5ed806e0d0ff03c9d1b0b2340088a0cf4bce09b18/flask-3.1.3-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "ca1d8112ec8a6158cc29ea4858963350011b5c846a414cdb7a954aa9e967d03c"
+sha256 = "f4bcbefc124291925f1a26446da31a5178f9483862233b23c0c96a20701f670c"
 
 [[packages]]
 name = "itsdangerous"

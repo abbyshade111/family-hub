@@ -131,6 +131,7 @@ fix-within-days = { critical = 7, high = 30, medium = 90, low = 180 }   # owner'
 "V2.3.2" = { result = "done", on = "2026-10-03", by = "owner", how = "Made invite codes as an admin: 20 worked, the 21st was refused with the limit message. Only the invite limit was tried by hand; the larger limits are covered by tests/test_limits.py." }
 "V14.1.1" = { result = "done", on = "2026-10-03", by = "owner", how = "Listed the database tables and compared them, with the secret_key file, the console log and backups, against the kinds of data in security-notes.md (V14.1.2): every table was accounted for and nothing was more sensitive than noted." }
 "V14.2.4" = { result = "done", on = "2026-10-03", by = "owner", how = "Added a reminder as a member, then deleted that account: the reminder count in the database went from 1 to 0. The security log was checked for personal data in V16.3.3." }
+"V7.3.1" = { result = "done", on = "2026-10-03", by = "owner", how = "Signed in, left the tab alone for 33 minutes, then clicked a button: the action was refused and the session had ended, but the app showed an error page instead of the sign-in page (since fixed)." }
 "AC.4.1" = { result = "done", on = "2026-10-03", by = "owner", how = "High-level review of all the code the AI wrote; nothing deployed yet." }
 
 # ---------------------------------------------------------------------------------------------

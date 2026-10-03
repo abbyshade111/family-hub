@@ -248,8 +248,12 @@ def end_all_sessions(db, user_id):
 def load_user():
     g.user = None
     g.session_hash = None
+    g.session_ended = False   # a session cookie came in, but its session is over (timed out, signed out, unknown)
     token = request.cookies.get(session_cookie_name())
-    if not token or len(token) > 100:
+    if not token:
+        return
+    g.session_ended = True
+    if len(token) > 100:
         return
     token_hash = _hash_token(token)
     db = get_db()
@@ -271,6 +275,7 @@ def load_user():
         db.execute("DELETE FROM sessions WHERE token_hash = ?", (token_hash,))
         db.commit()
         return
+    g.session_ended = False
     if t - row["last_seen"] > 30:
         db.execute("UPDATE sessions SET last_seen = ? WHERE token_hash = ?", (t, token_hash))
         db.commit()
@@ -282,16 +287,26 @@ def login_required(view):
     @wraps(view)
     def wrapped(*args, **kwargs):
         if g.user is None:
-            return redirect(url_for("auth.login_form"))
+            return _to_sign_in()
         return view(*args, **kwargs)
     return wrapped
+
+
+def _to_sign_in():
+    """Send someone to sign in, saying so when it's because their session ended."""
+    if g.get("session_ended"):
+        response = redirect(url_for("auth.login_form", done="session-ended"))
+        response.delete_cookie(session_cookie_name(), path="/", secure=current_app.config["COOKIE_SECURE"],
+                               httponly=True, samesite="Lax")
+        return response
+    return redirect(url_for("auth.login_form"))
 
 
 def admin_required(view):
     @wraps(view)
     def wrapped(*args, **kwargs):
         if g.user is None:
-            return redirect(url_for("auth.login_form"))
+            return _to_sign_in()
         if g.user["role"] != "admin":
             audit.event("request_refused", "refused", reason="not_admin", path=request.path, status=403)
             abort(403)
@@ -328,6 +343,8 @@ def csrf_field():
 # Apple's answer arrives as a cross-site form POST; that endpoint only redirects (see views/oauth.py).
 # The CSP report endpoint only writes a log line, and browsers send to it without a form token.
 CSRF_EXEMPT_ENDPOINTS = {"oauth.callback_post", "reports.csp_report"}
+# Forms for getting in: an old session cookie left in the browser doesn't stop them working.
+SIGN_IN_ENDPOINTS = {"auth.login", "auth.signup", "mfa.answer", "oauth.finish_signup_post"}
 
 
 def check_request():
@@ -340,6 +357,11 @@ def check_request():
     if origin and origin != "null" and urlsplit(origin).netloc != request.host:
         audit.event("request_refused", "refused", reason="foreign_origin", path=request.path, status=403)
         abort(403)
+    if g.get("session_ended") and request.endpoint not in SIGN_IN_ENDPOINTS:
+        # A form sent from a page whose session has since ended (say, after being away 30 minutes).
+        # Nothing is done; the person is sent to sign in, told why, rather than shown an error.
+        audit.event("request_refused", "refused", reason="session_ended", path=request.path, status=302)
+        return _to_sign_in()
     if g.get("session_hash"):
         expected = _csrf_for("s:" + g.session_hash)
     else:

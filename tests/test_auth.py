@@ -283,3 +283,33 @@ class DeletingAnAccount(AppTestCase):
         b = self.signed_up("pat@example.com")
         self.assertEqual(b.post("/account/delete", {"password": "nope nope nope"}).status_code, 400)
         self.assertEqual(b.get("/").status_code, 200)
+
+
+class AfterTheSessionEnds(AppTestCase):
+    def test_a_button_pressed_after_being_away_goes_to_sign_in(self):
+        b = self.signed_up("pat@example.com")
+        b.post("/reminders", {"text": "Bins", "remind_at": "2000-01-01T09:00"}, page="/reminders")
+        token = b.token("/")                            # the page was loaded while signed in...
+        later = time.time() + 31 * 60                   # ...then left alone for 31 minutes
+        with mock.patch("familyhub.security.now", return_value=later):
+            r = b.post("/reminders/1/done", {"csrf_token": token})
+        self.assertEqual(r.status_code, 302)
+        self.assertIn("/login?done=session-ended", r.headers["Location"])
+        page = b.get(r.headers["Location"]).get_data(as_text=True)
+        self.assertIn("signed out", page)
+        import sqlite3
+        db = sqlite3.connect(self.app.config["DATABASE"])
+        self.assertEqual(db.execute("SELECT done FROM reminders").fetchone()[0], 0)   # nothing was done
+        db.close()
+
+    def test_signing_in_works_with_an_old_cookie_still_in_the_browser(self):
+        b = self.signed_up("pat@example.com")
+        with mock.patch("familyhub.security.now", return_value=time.time() + 31 * 60):
+            self.assertEqual(b.login("pat@example.com").status_code, 302)
+            self.assertEqual(b.get("/").status_code, 200)
+
+    def test_a_made_up_cookie_is_treated_the_same(self):
+        b = self.browser()
+        b.client.set_cookie("__Host-fh_session", "x" * 43, domain="localhost")
+        r = b.post("/todos", {"title": "x", "csrf_token": "whatever"})
+        self.assertIn("/login?done=session-ended", r.headers["Location"])
