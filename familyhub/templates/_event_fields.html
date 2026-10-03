@@ -1,0 +1,6 @@
+<label>Title <input name="title" value="{{ values.title or '' }}" required maxlength="120"></label>
+<div class="row">
+  <label>Starts <input type="datetime-local" name="starts_at" value="{{ values.starts_at or '' }}" required></label>
+  <label>Ends <input type="datetime-local" name="ends_at" value="{{ values.ends_at or '' }}"></label>
+</div>
+<label>Notes <textarea name="notes" maxlength="1000" rows="3">{{ values.notes or '' }}</textarea></label>

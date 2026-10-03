@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Set up an authenticator app{% endblock %}
+{% block content %}
+<p><a href="{{ url_for('account.index') }}">← Account</a></p>
+<section class="card narrow">
+  <h1>Set up an authenticator app</h1>
+  <ol>
+    <li>On your phone, open an authenticator app (such as Google Authenticator, Microsoft Authenticator, 1Password or Apple Passwords).</li>
+    <li>On the phone itself, <a href="{{ uri }}">tap here to add Family Hub</a>. Or add an account by hand with this key:
+      <p class="code">{{ secret }}</p></li>
+    <li>Enter the 6-digit code it shows:</li>
+  </ol>
+  <form method="post" action="{{ url_for('mfa.confirm_setup') }}" class="stack">
+    {{ csrf_field() }}
+    <label>Code <input name="code" inputmode="numeric" autocomplete="one-time-code" required maxlength="40"></label>
+    <button type="submit">Turn on</button>
+  </form>
+  <p class="hint">Keep this key private: anyone with it can make your codes.</p>
+</section>
+{% endblock %}

@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.DS_Store
+securevibe-report/
+.env
+.env.*
+!.env.example
+# Sign in with Apple: private keys and generated client secrets stay off the repository
+*.p8
+apple_client_secret*.txt

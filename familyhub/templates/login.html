@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Sign in{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>Sign in</h1>
+  <form method="post" action="{{ url_for('auth.login') }}" class="stack">
+    {{ csrf_field() }}
+    <label>Email <input type="email" name="email" value="{{ email or '' }}" autocomplete="username" required maxlength="254"></label>
+    <label>Password <input type="password" name="password" autocomplete="current-password" required maxlength="128"></label>
+    <button type="submit">Sign in</button>
+  </form>
+{% set verb = 'Sign in' %}
+  {% if sign_in_providers %}
+  <div class="providers">
+    {% for p in sign_in_providers.values() %}
+    <a class="button secondary" href="{{ url_for('oauth.login', provider_key=p.key) }}">{{ verb }} with {{ p.label }}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+  <p>New here? <a href="{{ url_for('auth.signup_form') }}">Create an account</a></p>
+</section>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Archived to-dos' if archived else 'To-dos' }}{% endblock %}
+{% block content %}
+{% if archived %}
+<p><a href="{{ url_for('todos.index') }}">← To-dos</a></p>
+<h1>Archived to-dos</h1>
+<p class="hint">Archived to-dos are kept but hidden from the list. Restore one to bring it back.</p>
+{% else %}
+<h1>To-dos</h1>
+<p class="hint"><a href="{{ url_for('todos.archived') }}">Archived to-dos</a></p>
+<section class="card">
+  <h2>Add a to-do</h2>
+  <form method="post" action="{{ url_for('todos.create') }}" class="stack">
+    {{ csrf_field() }}
+    {% include "_todo_fields.html" %}
+    <button type="submit">Add</button>
+  </form>
+</section>
+{% endif %}
+<section class="card">
+  <ul class="items">
+  {% for t in todos %}
+    <li class="{{ 'done' if t.done }}">
+      <form method="post" action="{{ url_for('todos.toggle', todo_id=t.id) }}" class="inline">
+        {{ csrf_field() }}
+        <button type="submit" class="check" title="{{ 'Mark not done' if t.done else 'Mark done' }}">{{ '✓' if t.done else '○' }}</button>
+      </form>
+      <a href="{{ url_for('todos.show', todo_id=t.id) }}">{{ t.title }}</a>
+      <span class="meta">{% if t.assignee %}{{ t.assignee }}{% endif %}{% if t.due_date %} · due {{ t.due_date|day }}{% endif %}</span>
+      <form method="post" action="{{ url_for('todos.archive', todo_id=t.id) }}" class="inline end">
+        {{ csrf_field() }}<button type="submit" class="link">{{ 'Restore' if archived else 'Archive' }}</button>
+      </form>
+      {% if archived %}
+      <form method="post" action="{{ url_for('todos.delete', todo_id=t.id) }}" class="inline">
+        {{ csrf_field() }}<button type="submit" class="link">Delete</button>
+      </form>
+      {% endif %}
+    </li>
+  {% else %}<li class="empty">{{ 'Nothing archived.' if archived else 'Nothing to do.' }}</li>{% endfor %}
+  </ul>
+  {% if done_hidden %}
+  <p class="hint">Showing the {{ todos|selectattr('done')|list|length }} most recent done to-dos; {{ done_hidden }} older done to-do{{ '' if done_hidden == 1 else 's' }} aren't shown.</p>
+  {% endif %}
+</section>
+{% endblock %}

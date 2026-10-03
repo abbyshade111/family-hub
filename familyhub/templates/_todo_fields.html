@@ -1,0 +1,11 @@
+<label>What needs doing <input name="title" value="{{ values.title or '' }}" required maxlength="200"></label>
+<div class="row">
+  <label>Who
+    <select name="assigned_to">
+      <option value="">Anyone</option>
+      {% for m in members %}<option value="{{ m.id }}"{% if values.assigned_to == m.id %} selected{% endif %}>{{ m.display_name }}</option>{% endfor %}
+    </select>
+  </label>
+  <label>Due <input type="date" name="due_date" value="{{ values.due_date or '' }}"></label>
+</div>
+<label>Notes <textarea name="notes" maxlength="1000" rows="2">{{ values.notes or '' }}</textarea></label>

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}{{ event.title }}{% endblock %}
+{% block content %}
+<p><a href="{{ url_for('calendar.index') }}">← Calendar</a></p>
+<section class="card">
+  <h1>{{ event.title }}</h1>
+  <form method="post" action="{{ url_for('calendar.update', event_id=event.id) }}" class="stack">
+    {{ csrf_field() }}
+    {% include "_event_fields.html" %}
+    <button type="submit">Save</button>
+  </form>
+  <form method="post" action="{{ url_for('calendar.archive', event_id=event.id) }}" class="danger-zone">
+    {{ csrf_field() }}
+    <button type="submit" class="secondary">{{ 'Restore' if event.archived else 'Archive' }} event</button>
+  </form>
+  <form method="post" action="{{ url_for('calendar.delete', event_id=event.id) }}">
+    {{ csrf_field() }}
+    <button type="submit" class="danger">Delete event</button>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Your recovery codes{% endblock %}
+{% block content %}
+<section class="card narrow">
+  {% if just_enabled %}<p class="notice">Authenticator app turned on. You've been signed out everywhere else.</p>{% endif %}
+  <h1>Your recovery codes</h1>
+  <p>If you lose your phone, each of these codes gets you in once, in place of an authenticator code. Save them somewhere safe, like a password manager. <strong>They won't be shown again.</strong></p>
+  <ul class="codes">{% for c in codes %}<li class="code">{{ c }}</li>{% endfor %}</ul>
+  <p><a href="{{ url_for('account.index') }}">I've saved them</a></p>
+</section>
+{% endblock %}

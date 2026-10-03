@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block title %}Account{% endblock %}
+{% macro confirm_field() %}
+  {% if g.user.has_password %}
+  <label>Password <input type="password" name="password" autocomplete="current-password" required maxlength="128"></label>
+  {% endif %}
+{% endmacro %}
+{% block content %}
+<h1>Your account</h1>
+<section class="card">
+  <p>{{ g.user.email }}</p>
+  <p class="meta">{{ g.user.family_name }}{% if g.user.role == 'admin' %} · family admin{% endif %}</p>
+  <form method="post" action="{{ url_for('account.change_name') }}" class="row">
+    {{ csrf_field() }}
+    <label class="grow">Your name <input name="display_name" value="{{ g.user.display_name }}" required maxlength="60"></label>
+    <button type="submit">Save</button>
+  </form>
+</section>
+
+{% if providers or connected %}
+<section class="card">
+  <h2>Ways to sign in</h2>
+  <ul class="items">
+    <li><span>Email and password</span> <span class="meta">{{ 'set' if g.user.has_password else 'not set' }}</span></li>
+    {% for key, p in providers.items() %}
+    <li>
+      <span>{{ p.label }}</span>
+      {% if key in connected %}
+        <span class="meta">connected{% if connected[key].email %} · {{ connected[key].email }}{% endif %}</span>
+        <form method="post" action="{{ url_for('account.disconnect', provider_key=key) }}" class="inline end row">
+          {{ csrf_field() }}{{ confirm_field() }}<button type="submit" class="secondary">Disconnect</button>
+        </form>
+      {% else %}
+        <form method="post" action="{{ url_for('account.connect', provider_key=key) }}" class="inline end row">
+          {{ csrf_field() }}{{ confirm_field() }}<button type="submit" class="secondary">Connect {{ p.label }}</button>
+        </form>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% if not g.user.has_password %}
+  <p class="hint">
+    {% if recently_signed_in %}You signed in within the last 10 minutes, so you can make changes below.
+    {% else %}To make changes below, first confirm it's you:{% endif %}
+  </p>
+  {% if not recently_signed_in %}
+  <div class="row">
+    {% for key in connected if key in providers %}
+    <form method="post" action="{{ url_for('account.confirm', provider_key=key) }}">
+      {{ csrf_field() }}<button type="submit">Confirm with {{ providers[key].label }}</button>
+    </form>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endif %}
+</section>
+{% endif %}
+
+<section class="card">
+  <h2>Authenticator app</h2>
+  {% if g.user.totp_enabled %}
+  <p>On: you enter a code from your authenticator app every time you sign in.</p>
+  <div class="row">
+    <form method="post" action="{{ url_for('mfa.new_recovery_codes') }}" class="inline row">
+      {{ csrf_field() }}{{ confirm_field() }}<button type="submit" class="secondary">New recovery codes</button>
+    </form>
+    {% if g.user.role != 'admin' %}
+    <form method="post" action="{{ url_for('mfa.disable') }}" class="inline row">
+      {{ csrf_field() }}{{ confirm_field() }}<button type="submit" class="danger">Turn off</button>
+    </form>
+    {% else %}
+    <p class="hint">Family admins need it, so it can't be turned off.</p>
+    {% endif %}
+  </div>
+  {% else %}
+  <p>{% if g.user.role == 'admin' %}<strong>Needed for family admins.</strong> {% endif %}Ask for a 6-digit code from an app on your phone each time you sign in, so a password alone isn't enough.</p>
+  <form method="post" action="{{ url_for('mfa.start_setup') }}" class="row">
+    {{ csrf_field() }}{{ confirm_field() }}<button type="submit">Set up an authenticator app</button>
+  </form>
+  {% endif %}
+</section>
+
+<section class="card">
+  <h2>Where you're signed in</h2>
+  {% if other_sessions %}
+  <p>You're also signed in on {{ other_sessions }} other device{{ '' if other_sessions == 1 else 's' }} or browser{{ '' if other_sessions == 1 else 's' }}.</p>
+  <form method="post" action="{{ url_for('account.sign_out_others') }}">
+    {{ csrf_field() }}<button type="submit" class="secondary">Sign out everywhere else</button>
+  </form>
+  {% else %}
+  <p class="meta">Only here.</p>
+  {% endif %}
+</section>
+
+<section class="card">
+  <h2>{{ 'Change password' if g.user.has_password else 'Set a password' }}</h2>
+  <form method="post" action="{{ url_for('account.change_password') }}" class="stack">
+    {{ csrf_field() }}
+    {% if g.user.has_password %}
+    <label>Current password <input type="password" name="current" autocomplete="current-password" required maxlength="128"></label>
+    {% endif %}
+    <label>New password <span class="hint">at least 12 characters</span>
+      <input type="password" name="new" autocomplete="new-password" required minlength="12" maxlength="128"></label>
+    <button type="submit">{{ 'Change password' if g.user.has_password else 'Set password' }}</button>
+  </form>
+</section>
+<section class="card">
+  <h2>Delete account</h2>
+  <p>This removes your account and your reminders. Shared items stay with your family. If you're the last person in the family, everything is deleted.</p>
+  <form method="post" action="{{ url_for('account.delete') }}" class="stack">
+    {{ csrf_field() }}
+    {{ confirm_field() }}
+    <button type="submit" class="danger">Delete my account</button>
+  </form>
+</section>
+{% endblock %}

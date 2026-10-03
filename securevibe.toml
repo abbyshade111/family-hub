@@ -1,0 +1,364 @@
+# securevibe.toml — what this app is, so `sv` knows which security requirements apply.
+# Written by your AI coding tool (Claude Code); read it yourself before you trust the report.
+manifest-version = 1
+
+[app]
+name = "Family Hub"
+description = "A web app where members of a family each have their own login and share a calendar, a to-do list, a grocery list, and personal reminders. Each family's data is visible only to that family's members."
+audience = "customers"    # other families sign up and use it; not yet confirmed by the owner
+deployment = "internet"   # assumed until the owner says where it will run
+
+[stack]
+languages = ["python"]
+
+[stack.run]
+image = "python:3.12-slim"
+build = ""                # packages are installed into ./vendor ahead of time; nothing is downloaded at start
+# sv checks the app from another container on its fenced network, over plain HTTP, where a browser drops
+# Secure cookies; FAMILY_HUB_INSECURE_COOKIES=1 is for this test run only. Production keeps Secure cookies,
+# which tests/test_auth.py (test_session_cookie_flags) checks.
+start = "FAMILY_HUB_INSECURE_COOKIES=1 python run.py --host 0.0.0.0 --port $PORT"
+test = "python tests/run_tests.py --junit /sv-reports/junit.xml"
+test-report = "junit.xml"
+health = "/health"
+
+[stack.run.oidc]
+# The generic provider (OIDC_ISSUER, OIDC_CLIENT_ID, OIDC_CLIENT_SECRET) shares its code with Google and Apple.
+# Someone new who signs in this way is sent to /signup/finish to choose a family before an account exists.
+start = "/login/oidc"
+private = "/account"
+
+[stack.run.users]
+# The app's data lives under /tmp/family-hub (FAMILY_HUB_DATA), never in the app's folder.
+seed = "python seed.py"
+signup = { path = "/signup", form = { email = "{user}", password = "{password}", display_name = "Test Person", family_name = "Test Family", csrf_token = "{csrf}" } }
+login  = { path = "/login",  form = { email = "{user}", password = "{password}", csrf_token = "{csrf}" } }
+logout = { path = "/logout", form = { csrf_token = "{csrf}" } }
+private = ["/", "/calendar", "/todos", "/groceries", "/reminders", "/account"]
+admin = ["/family"]
+admin-actions = [{ path = "/family/rename", form = { name = "{marker}", csrf_token = "{csrf}" }, check = "/" }]
+owned = { create = { path = "/todos", form = { title = "{marker}", csrf_token = "{csrf}" } }, read = "/todos/{id}" }
+change-password = { path = "/account/password", form = { current = "{password}", new = "{new_password}", csrf_token = "{csrf}" } }
+delete-account = { path = "/account/delete", form = { password = "{password}", csrf_token = "{csrf}" } }
+browser = { text-form = "/todos", shows = "/todos" }
+totp = { path = "/login/2fa", form = { code = "{code}", csrf_token = "{csrf}" } }
+# The seeded admin has no authenticator app, and admins need one for family settings, so the admin
+# checks will find the admin turned away from /family as well: that is the owner's rule working.
+
+[data]
+# Email addresses and names (contact), hashed passwords (credentials), calendar entries, tasks and
+# reminders about family life (other-personal). Families include children, who may have accounts
+# or be named in entries, so `children` is listed.
+categories = ["contact", "credentials", "children", "other-personal"]
+
+[capabilities]
+auth = true
+oauth = true                  # Sign in with Google / Apple / another OpenID Connect provider (familyhub/oidc.py)
+authorization-server = false
+mcp-server = false
+jwt = false
+uploads = false
+payments = false
+email = false
+public-api = false
+scheduler = true              # tools/backup.py is meant to run from the host's cron; the app itself starts no background jobs
+multi-tenant = true           # each family is a separate group whose data must stay apart
+webrtc = false
+out-of-band-auth = false
+# shared-hostname = ?         # depends on where it is deployed; not known yet
+multiple-services = false
+external-apis = ["api.pwnedpasswords.com", "accounts.google.com", "oauth2.googleapis.com", "appleid.apple.com"]
+# api.pwnedpasswords.com: leaked-password check. The others: signing in with Google and Apple, when configured.
+tls = "terminated-upstream"   # assumed: HTTPS is ended by a proxy or host in front of the app
+
+[repository]
+ci-cd = false
+# hosted-scm = ?              # not known: the repository has no remote yet
+# outside-contributors = ?    # not known
+iac = false
+
+[capabilities.ai]
+enabled = false
+can-act = false
+stores-history = false
+moderation = false
+rag = false
+web-search = false
+generates-media = false
+mcp = false
+training = false
+self-hosted = false
+multi-agent = false
+multimodal = false
+
+[policy]
+failed-sign-ins = 5
+within-minutes = 15
+idle-timeout-minutes = 30
+session-lifetime-minutes = 720
+context-words = ["familyhub"]
+fix-within-days = { critical = 7, high = 30, medium = 90, low = 180 }   # owner's decision, 2026-10-03
+
+[design]
+"V2.2.2" = { answer = "yes", where = "familyhub/forms.py", by = "owner" }   # owner reviewed FormReader, 2026-10-03
+"V7.2.1" = { answer = "yes", where = "familyhub/security.py", by = "owner" }   # owner reviewed load_user(), 2026-10-03
+"V8.3.1" = { answer = "yes", where = "familyhub/security.py", by = "owner" }   # owner reviewed the decorators here and the *_or_404 helpers in familyhub/views/, 2026-10-03
+"V15.3.1" = { answer = "yes", where = "familyhub/templates/todo.html", by = "owner" }   # owner compared the event and to-do pages' source with what they show; the server-rendered templates in familyhub/templates/ decide what is sent, 2026-10-03
+"V1.1.1" = { answer = "yes", where = "familyhub/forms.py", by = "owner" }   # 2026-10-03; ID tokens: decode_id_token then check_claims in familyhub/oidc.py
+"V4.1.3" = { answer = "not-sure", by = "owner" }   # 2026-10-03: depends on the hosting, not chosen yet; FAMILY_HUB_TRUSTED_PROXIES must match the real proxies
+"V4.2.1" = { answer = "not-sure", by = "owner" }   # 2026-10-03: depends on the proxy and production server, neither chosen yet
+"V8.2.3" = { answer = "yes", where = "familyhub/views/todos.py", by = "owner" }   # owner reviewed the UPDATE statements in familyhub/views/, 2026-10-03
+"V10.1.1" = { answer = "yes", where = "familyhub/oidc.py", by = "owner" }   # owner reviewed exchange_code/check_claims and the callback in familyhub/views/oauth.py, 2026-10-03
+"V11.2.2" = { answer = "yes", where = "familyhub/security.py", by = "owner" }   # 2026-10-03: lookup_hash() and self-describing password hashes, upgraded on sign-in
+"V13.2.1" = { answer = "yes", where = "familyhub/db.py", by = "owner" }   # changed by the owner 2026-10-03: the only backend component is the local SQLite file (no network, owner-only file permissions); Google's fixed client secret is handled under the key plan (V11.1.1)
+"V13.2.2" = { answer = "not-sure", by = "owner" }   # 2026-10-03: provider scopes are openid email only; the OS user the app runs as depends on hosting, not chosen yet
+"V14.2.2" = { answer = "yes", where = "familyhub/security.py", by = "owner" }   # owner reviewed add_headers (Cache-Control: no-store on every response), 2026-10-03
+"V15.3.4" = { answer = "not-sure", by = "owner" }   # 2026-10-03: same as V4.1.3; FAMILY_HUB_TRUSTED_PROXIES must match the hosting, not chosen yet
+"V16.2.2" = { answer = "yes", where = "familyhub/audit.py", by = "owner" }   # 2026-10-03: utc_timestamp() for the security and request logs; clock sync is the host's (NTP)
+"V16.4.3" = { answer = "not-sure", by = "owner" }   # 2026-10-03: the app logs to the console; whether the host ships it to a separate system depends on hosting, not chosen yet
+
+[checked-by-hand]
+"V6.3.3" = { result = "done", on = "2026-10-03", by = "owner", how = "Signed up as a family admin, set up an authenticator app, signed out and back in: after the email and password the app asked for the authenticator code, and the code got me in and Family opened." }
+"V6.2.11" = { result = "done", on = "2026-10-03", by = "owner", how = "Tried to create an account with the password myfamilyhubpassword2026; it was refused with the message about not building a password from the app's name, your email address, or your name." }
+"V6.2.12" = { result = "done", on = "2026-10-03", by = "owner", how = "Tried to create an account with the passwords qwerty123456 and iloveyou1234; both were refused with the message that the password has appeared in a data breach." }
+"V13.4.5" = { result = "done", on = "2026-10-03", by = "owner", how = "Signed out, tried /admin, /debug, /docs, /swagger, /metrics, /.git and /console: all showed not found; /health showed only ok; /family went to sign in." }
+"V14.2.3" = { result = "done", on = "2026-10-03", by = "owner", how = "Signed in and used every page, added items, signed out and back in, with Safari's Web Inspector Network tab recording: all requests went to localhost only." }
+"V16.3.3" = { result = "done", on = "2026-10-03", by = "owner", how = "Signed in with a wrong password, then a wrong authenticator code, then the right one, signed out everywhere else and signed out: the console showed sign_in failed, needs_code, mfa_check failed and ok, sign_in ok, sign_out_others and sign_out, with no email or password anywhere." }
+"V16.2.3" = { result = "done", on = "2026-10-03", by = "owner", how = "Listed /tmp/family-hub (only family.db and secret_key, owner-only) and searched the app folder for .log files (none); logs appear only on the console." }
+"V6.3.4" = { result = "done", on = "2026-10-03", by = "owner", how = "Signed out, checked the sign-in page offers only email and password, and tried /login/google, /login/apple, /login/oidc, /signup/finish, /login/2fa and a made-up callback: none signed me in; found no way in that is not on the list in security-notes.md (V6.1.3)." }
+"V6.4.4" = { result = "done", on = "2026-10-03", by = "owner", how = "Signed in with my password and a saved recovery code in place of the authenticator code: it got me in; signing in again with the same recovery code was refused." }
+"V2.3.4" = { result = "done", on = "2026-10-03", by = "owner", how = "Made one invite code and submitted sign-up with it in two private windows as close together as I could: one got in, the other was refused as invalid." }
+"V2.3.2" = { result = "done", on = "2026-10-03", by = "owner", how = "Made invite codes as an admin: 20 worked, the 21st was refused with the limit message. Only the invite limit was tried by hand; the larger limits are covered by tests/test_limits.py." }
+"V14.1.1" = { result = "done", on = "2026-10-03", by = "owner", how = "Listed the database tables and compared them, with the secret_key file, the console log and backups, against the kinds of data in security-notes.md (V14.1.2): every table was accounted for and nothing was more sensitive than noted." }
+"V14.2.4" = { result = "done", on = "2026-10-03", by = "owner", how = "Added a reminder as a member, then deleted that account: the reminder count in the database went from 1 to 0. The security log was checked for personal data in V16.3.3." }
+"AC.4.1" = { result = "done", on = "2026-10-03", by = "owner", how = "High-level review of all the code the AI wrote; nothing deployed yet." }
+
+# ---------------------------------------------------------------------------------------------
+# Findings the AI coding tool thinks are false alarms. PROPOSALS ONLY: with by = "ai-tool" they
+# don't count. The owner reads each one and, if they agree, changes by to "owner".
+# ---------------------------------------------------------------------------------------------
+
+[[finding-review]]
+rule = "ast.sql-built-by-hand"
+file = "familyhub/db.py"
+fingerprint = "b1b5a97fd74de5a1"
+verdict = "false-alarm"
+why = "executescript(SCHEMA) runs the fixed schema text defined in this file; nothing from a request or from data is part of it."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "ast.sql-built-by-hand"
+file = "familyhub/db.py"
+fingerprint = "88cd61d646a6f276"
+verdict = "false-alarm"
+why = "The ALTER TABLE upgrade takes table, column and type names from a fixed dict a few lines above; SQLite cannot bind names, and no input reaches them."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "ast.sql-built-by-hand"
+file = "familyhub/limits.py"
+fingerprint = "044e91e04783ea9a"
+verdict = "false-alarm"
+why = "_count runs SQL text that every caller in this file writes out as a literal; the counted values are always passed separately as parameters."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "ast.sql-built-by-hand"
+file = "familyhub/views/reminders.py"
+fingerprint = "d94d542e23f1fed9"
+verdict = "false-alarm"
+why = "The query joins in VISIBLE, a fixed piece of SQL defined in this file (kept in one place so the who-can-see rule can't drift); all values are bound by name."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "ast.sql-built-by-hand"
+file = "familyhub/views/reminders.py"
+fingerprint = "b8e490db2c63091c"
+verdict = "false-alarm"
+why = "Same as the other reminder queries: the fixed VISIBLE text from this file plus bound parameters (:me, :family, :id); no input becomes SQL text."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "ast.sql-built-by-hand"
+file = "familyhub/views/todos.py"
+fingerprint = "f7491774a47e2759"
+verdict = "false-alarm"
+why = "The query is a fixed column list from this function joined to a fixed WHERE clause; the family id and archived flag are bound parameters."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "ast.sql-built-by-hand"
+file = "familyhub/views/todos.py"
+fingerprint = "35a17463122b83fc"
+verdict = "false-alarm"
+why = "Same fixed column list and fixed WHERE clause as the line above it; family id, archived flag and limit are bound parameters."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "ast.sql-built-by-hand"
+file = "tests/test_access.py"
+fingerprint = "d3b42630898dc077"
+verdict = "false-alarm"
+why = "Test-only helper: the table names come from a fixed tuple written in the test, to snapshot the database; no outside input."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "ast.sql-built-by-hand"
+file = "tests/test_archive_logs_backups.py"
+fingerprint = "db4f3cb449d6206a"
+verdict = "false-alarm"
+why = "Test-only helper: the table name is passed by the test itself from a fixed set of names; no outside input reaches it."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "ast.sql-built-by-hand"
+file = "tests/test_auth.py"
+fingerprint = "1d3d923df9c256ef"
+verdict = "false-alarm"
+why = "Test-only check: the table names come from a fixed tuple written in the test, to count rows after an account is deleted."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "secrets.credential-assignment"
+file = "familyhub/views/account.py"
+fingerprint = "5c26a3c648994a24"
+verdict = "false-alarm"
+why = "WRONG_PASSWORD holds the error message shown to a person who typed the wrong password (\"Your current password isn't right.\"); it is not a credential and opens nothing."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "secrets.credential-assignment"
+file = "tests/test_breached.py"
+fingerprint = "5fe6a22a0df6c14a"
+verdict = "false-alarm"
+why = "A made-up phrase a test uses as a new password while the leaked-password service is replaced by a fake; it is no one's password and protects no account anywhere."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "secrets.credential-assignment"
+file = "tests/test_mfa.py"
+fingerprint = "2eff1c8aff1814b7"
+verdict = "false-alarm"
+why = "A made-up passphrase a test sets on a throwaway account in a temporary database that is deleted after the test; it is no one's real password and opens nothing."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "ast.file-path-from-value"
+file = "familyhub/security.py"
+fingerprint = "0dcf017f7034554f"
+verdict = "false-alarm"
+why = "The path is the data folder from FAMILY_HUB_DATA, set by whoever runs the server, joined to the fixed name secret_key; nothing in a request reaches it."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "ast.file-path-from-value"
+file = "tests/test_archive_logs_backups.py"
+fingerprint = "56829bf35246d78f"
+verdict = "false-alarm"
+why = "Test-only: writes placeholder files into the test's own temporary backup folder, with names built from a loop counter."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "ast.file-path-from-value"
+file = "tests/test_archive_logs_backups.py"
+fingerprint = "00dfd7024bbb612f"
+verdict = "false-alarm"
+why = "Test-only: writes a fixed file name into the test's own temporary backup folder, to show the backup tool leaves other files alone."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "ast.file-path-from-value"
+file = "tests/test_crypto_agility.py"
+fingerprint = "b76f022719621fc9"
+verdict = "false-alarm"
+why = "Test-only: reads the app's own source files found by walking the familyhub folder, to check no file picks its own hash."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "ast.open-redirect"
+file = "familyhub/views/oauth.py"
+fingerprint = "96834a2ff1dc8d96"
+verdict = "false-alarm"
+why = "Sends the browser to the sign-in provider's published authorization endpoint, accepted only from exactly the configured issuer (HTTPS-only for Google and Apple); nothing in the request picks it."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "tests.name-does-not-match-requirement"
+file = "tests/test_archive_logs_backups.py"
+fingerprint = "525bfd656a57a683"
+verdict = "false-alarm"
+why = "The test checks that another family's archive requests are refused by the server, which is server-side authorization (V8.3.1); it is phrased in different words from the requirement's text."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "tests.name-does-not-match-requirement"
+file = "tests/test_limits.py"
+fingerprint = "192a5b0a59453b3b"
+verdict = "false-alarm"
+why = "The test checks the open to-dos limit from security-notes.md is enforced, which is a business limit implemented per the documentation (V2.3.2); it is phrased in different words from the requirement's text."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "tests.name-does-not-match-requirement"
+file = "tests/test_mfa.py"
+fingerprint = "bb25c80f6c57cae9"
+verdict = "false-alarm"
+why = "The test checks that a password alone does not sign someone in when they have an authenticator app, which is multi-factor sign-in (V6.3.3); it is phrased in different words from the requirement's text."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "tests.name-does-not-match-requirement"
+file = "tests/test_oidc.py"
+fingerprint = "98901b5f55f4a6d9"
+verdict = "false-alarm"
+why = "The test checks people are identified by the ID token's sub claim, not their email, which is what the requirement asks (V10.5.2); it is phrased in different words from the requirement's text."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "tests.name-does-not-match-requirement"
+file = "tests/test_oidc.py"
+fingerprint = "72311620cd1a7f19"
+verdict = "false-alarm"
+why = "The test checks a provider's answer is refused in a browser other than the one that started the sign-in, which is binding to the user agent session (V10.1.2); it is phrased in different words from the requirement's text."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "tests.name-does-not-match-requirement"
+file = "tests/test_oidc.py"
+fingerprint = "6e9419415befed52"
+verdict = "false-alarm"
+why = "The test checks an answer naming a different issuer is refused, which is the mix-up defence the requirement describes (V10.2.2); it is phrased in different words from the requirement's text."
+by = "ai-tool"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "tests.name-does-not-match-requirement"
+file = "tests/test_people.py"
+fingerprint = "e8da11a2d9d38a26"
+verdict = "false-alarm"
+why = "The test checks only an admin can promote, enforced by the server whatever the browser sends, which is server-side authorization (V8.3.1); it is phrased in different words from the requirement's text."
+by = "ai-tool"
+on = "2026-10-03"

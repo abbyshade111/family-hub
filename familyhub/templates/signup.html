@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Create an account{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>Create an account</h1>
+  <form method="post" action="{{ url_for('auth.signup') }}" class="stack">
+    {{ csrf_field() }}
+    <label>Email <input type="email" name="email" value="{{ values.email or '' }}" autocomplete="username" required maxlength="254"></label>
+    <label>Your name <input name="display_name" value="{{ values.display_name or '' }}" required maxlength="60"></label>
+    <label>Password <span class="hint">at least 12 characters</span>
+      <input type="password" name="password" autocomplete="new-password" required minlength="12" maxlength="128"></label>
+    <fieldset>
+      <legend>Your family</legend>
+      <label>Start a new family called <input name="family_name" value="{{ values.family_name or '' }}" maxlength="80"></label>
+      <p class="hint">or</p>
+      <label>Join with an invite code <input name="invite_code" autocomplete="off" maxlength="64"></label>
+    </fieldset>
+    <button type="submit">Create account</button>
+  </form>
+{% set verb = 'Sign up' %}
+  {% if sign_in_providers %}
+  <div class="providers">
+    {% for p in sign_in_providers.values() %}
+    <a class="button secondary" href="{{ url_for('oauth.login', provider_key=p.key) }}">{{ verb }} with {{ p.label }}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+  <p>Already have an account? <a href="{{ url_for('auth.login_form') }}">Sign in</a></p>
+</section>
+{% endblock %}

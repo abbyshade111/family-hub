@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Sign-in problem{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>{{ message }}</h1>
+  <p><a href="{{ url_for('auth.login_form') if not g.user else url_for('account.index') }}">Back</a></p>
+</section>
+{% endblock %}

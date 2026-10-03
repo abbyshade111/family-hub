@@ -1,0 +1,79 @@
+lock-version = "1.0"
+created-by = "pip"
+
+[[packages]]
+name = "blinker"
+version = "1.9.0"
+
+[[packages.wheels]]
+name = "blinker-1.9.0-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/10/cb/f2ad4230dc2eb1a74edf38f1a38b9b52277f75bef262d8908e60d957e13c/blinker-1.9.0-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "ba0efaa9080b619ff2f3459d1d500c57bddea4a6b424b60a91141db6fd2f08bc"
+
+[[packages]]
+name = "click"
+version = "8.5.0"
+
+[[packages.wheels]]
+name = "click-8.5.0-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/58/50/6c0d534c5f134586a8e1ba4e330569e32f057e33372ae556463212fb4cd3/click-8.5.0-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360"
+
+[[packages]]
+name = "flask"
+version = "3.1.2"
+
+[[packages.wheels]]
+name = "flask-3.1.2-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/ec/f9/7f9263c5695f4bd0023734af91bedb2ff8209e8de6ead162f35d8dc762fd/flask-3.1.2-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "ca1d8112ec8a6158cc29ea4858963350011b5c846a414cdb7a954aa9e967d03c"
+
+[[packages]]
+name = "itsdangerous"
+version = "2.2.0"
+
+[[packages.wheels]]
+name = "itsdangerous-2.2.0-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/04/96/92447566d16df59b2a776c0fb82dbc4d9e07cd95062562af01e408583fc4/itsdangerous-2.2.0-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "c6242fc49e35958c8b15141343aa660db5fc54d4f13a1db01a3f5891b98700ef"
+
+[[packages]]
+name = "jinja2"
+version = "3.1.6"
+
+[[packages.wheels]]
+name = "jinja2-3.1.6-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/62/a1/3d680cbfd5f4b8f15abc1d571870c5fc3e594bb582bc3b64ea099db13e56/jinja2-3.1.6-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67"
+
+[[packages]]
+name = "markupsafe"
+version = "3.0.4"
+
+[[packages.wheels]]
+name = "markupsafe-3.0.4-cp313-cp313-macosx_11_0_arm64.whl"
+url = "https://files.pythonhosted.org/packages/ca/e0/4030bea613677e333c8a2c901fd405055f657f9d06acba5b7357984b6ef7/markupsafe-3.0.4-cp313-cp313-macosx_11_0_arm64.whl"
+
+[packages.wheels.hashes]
+sha256 = "73e77980c7207854f00fc4e71fb1626868d5740ab4012623d55c7a99ad122a72"
+
+[[packages]]
+name = "werkzeug"
+version = "3.1.9"
+
+[[packages.wheels]]
+name = "werkzeug-3.1.9-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/a1/38/df03f564f43cec2684823f3cccae1a652ee7face1cbaa76fb223096e64d7/werkzeug-3.1.9-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "6392e50c78460ba618e5b21f08a71f59c99ce99cdc6cf6e3dd7e6ccca8754fab"

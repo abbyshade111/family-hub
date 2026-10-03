@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Finish creating your account{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>Finish creating your account</h1>
+  <p>No Family Hub account is connected to that {{ provider.label if provider else '' }} account yet.
+     {% if pending.email %}Your account will use <strong>{{ pending.email }}</strong>.{% endif %}</p>
+  <p class="hint">Already have a Family Hub account? <a href="{{ url_for('auth.login_form') }}">Sign in with your password</a>, then connect {{ provider.label if provider else 'it' }} from your Account page.</p>
+  <form method="post" action="{{ url_for('oauth.finish_signup_post') }}" class="stack">
+    {{ csrf_field() }}
+    <label>Your name <input name="display_name" value="{{ values.display_name or '' }}" required maxlength="60"></label>
+    <fieldset>
+      <legend>Your family</legend>
+      <label>Start a new family called <input name="family_name" value="{{ values.family_name or '' }}" maxlength="80"></label>
+      <p class="hint">or</p>
+      <label>Join with an invite code <input name="invite_code" autocomplete="off" maxlength="64"></label>
+    </fieldset>
+    <button type="submit">Create account</button>
+  </form>
+</section>
+{% endblock %}

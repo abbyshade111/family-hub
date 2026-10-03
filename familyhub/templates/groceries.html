@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Groceries{% endblock %}
+{% block content %}
+<h1>Groceries</h1>
+<section class="card">
+  <form method="post" action="{{ url_for('groceries.create') }}" class="row">
+    {{ csrf_field() }}
+    <label class="grow">Item <input name="name" value="{{ values.name or '' }}" required maxlength="100"></label>
+    <label>How much <input name="quantity" value="{{ values.quantity or '' }}" maxlength="40"></label>
+    <button type="submit">Add</button>
+  </form>
+</section>
+<section class="card">
+  <ul class="items">
+  {% for i in items %}
+    <li class="{{ 'done' if i.checked }}">
+      <form method="post" action="{{ url_for('groceries.toggle', item_id=i.id) }}" class="inline">
+        {{ csrf_field() }}
+        <button type="submit" class="check" title="{{ 'Put back on the list' if i.checked else 'Got it' }}">{{ '✓' if i.checked else '○' }}</button>
+      </form>
+      <span>{{ i.name }}</span>{% if i.quantity %} <span class="meta">{{ i.quantity }}</span>{% endif %}
+      <form method="post" action="{{ url_for('groceries.delete', item_id=i.id) }}" class="inline end">
+        {{ csrf_field() }}<button type="submit" class="link" title="Remove">Remove</button>
+      </form>
+    </li>
+  {% else %}<li class="empty">The list is empty.</li>{% endfor %}
+  </ul>
+  {% if items|selectattr('checked')|list %}
+  <form method="post" action="{{ url_for('groceries.clear_checked') }}">
+    {{ csrf_field() }}<button type="submit" class="secondary">Clear items we've got</button>
+  </form>
+  {% endif %}
+</section>
+{% endblock %}

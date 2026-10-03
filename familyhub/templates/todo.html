@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ todo.title }}{% endblock %}
+{% block content %}
+<p><a href="{{ url_for('todos.index') }}">← To-dos</a></p>
+<section class="card">
+  <h1>{{ todo.title }}</h1>
+  <p class="meta">{{ 'Done' if todo.done else 'Not done yet' }}{% if todo.archived %} · archived{% endif %}</p>
+  <form method="post" action="{{ url_for('todos.update', todo_id=todo.id) }}" class="stack">
+    {{ csrf_field() }}
+    {% include "_todo_fields.html" %}
+    <button type="submit">Save</button>
+  </form>
+  <form method="post" action="{{ url_for('todos.archive', todo_id=todo.id) }}" class="danger-zone">
+    {{ csrf_field() }}
+    <button type="submit" class="secondary">{{ 'Restore' if todo.archived else 'Archive' }} to-do</button>
+  </form>
+  <form method="post" action="{{ url_for('todos.delete', todo_id=todo.id) }}">
+    {{ csrf_field() }}
+    <button type="submit" class="danger">Delete to-do</button>
+  </form>
+</section>
+{% endblock %}

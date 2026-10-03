@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Enter your code{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>Enter your code</h1>
+  <p>Open your authenticator app and enter the 6-digit code for Family Hub.</p>
+  <form method="post" action="{{ url_for('mfa.answer') }}" class="stack">
+    {{ csrf_field() }}
+    <label>Code <input name="code" inputmode="numeric" autocomplete="one-time-code" required maxlength="60" autofocus></label>
+    <button type="submit">Continue</button>
+  </form>
+  <p class="hint">Lost your phone? Enter one of your recovery codes instead (they look like <code>abcde-fghjk-mnpqr-stuvw-xyz23</code>).</p>
+  <p><a href="{{ url_for('auth.login_form') }}">Start again</a></p>
+</section>
+{% endblock %}

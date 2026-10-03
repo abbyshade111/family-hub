@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Calendar{% endblock %}
+{% block content %}
+<h1>Calendar</h1>
+<p class="hint"><a href="{{ url_for('calendar.archived') }}">Archived events</a></p>
+<section class="card">
+  <h2>Add an event</h2>
+  <form method="post" action="{{ url_for('calendar.create') }}" class="stack">
+    {{ csrf_field() }}
+    {% include "_event_fields.html" %}
+    <button type="submit">Add event</button>
+  </form>
+</section>
+<section class="card">
+  <h2>Coming up</h2>
+  <ul class="items">
+  {% for e in events %}
+    <li>
+      <a href="{{ url_for('calendar.show', event_id=e.id) }}">{{ e.title }}</a>
+      <span class="meta">{{ e.starts_at|when }}{% if e.ends_at %} – {{ e.ends_at|when }}{% endif %}{% if e.added_by %} · {{ e.added_by }}{% endif %}</span>
+    </li>
+  {% else %}<li class="empty">Nothing on the calendar.</li>{% endfor %}
+  </ul>
+</section>
+{% endblock %}

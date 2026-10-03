@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock %} · Family Hub</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="{{ url_for('home.index') }}">Family Hub</a>
+  {% if g.user %}
+  <nav>
+    <a href="{{ url_for('calendar.index') }}">Calendar</a>
+    <a href="{{ url_for('todos.index') }}">To-dos</a>
+    <a href="{{ url_for('groceries.index') }}">Groceries</a>
+    <a href="{{ url_for('reminders.index') }}">Reminders</a>
+    {% if g.user.role == 'admin' %}<a href="{{ url_for('family.index') }}">Family</a>{% endif %}
+    <a href="{{ url_for('account.index') }}">Account</a>
+  </nav>
+  <form method="post" action="{{ url_for('auth.logout') }}" class="signout">
+    {{ csrf_field() }}
+    <button type="submit">Sign out</button>
+  </form>
+  {% endif %}
+</header>
+<main>
+  {% if notice %}<p class="notice" role="status">{{ notice }}</p>{% endif %}
+  {% if errors %}
+  <div class="errors" role="alert"><ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>
+  {% endif %}
+  {% block content %}{% endblock %}
+</main>
+</body>
+</html>

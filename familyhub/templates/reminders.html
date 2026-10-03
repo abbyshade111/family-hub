@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Archived reminders' if archived else 'Reminders' }}{% endblock %}
+{% block content %}
+{% if archived %}
+<p><a href="{{ url_for('reminders.index') }}">← Reminders</a></p>
+<h1>Archived reminders</h1>
+<p class="hint">Archived reminders are kept but hidden, and don't show on the home page. Restore one to bring it back.</p>
+{% else %}
+<h1>Your reminders</h1>
+<p class="hint">Only you can see your reminders unless you share them with your family. Due reminders show on the home page. · <a href="{{ url_for('reminders.archived') }}">Archived reminders</a></p>
+<section class="card">
+  <form method="post" action="{{ url_for('reminders.create') }}" class="row">
+    {{ csrf_field() }}
+    <label class="grow">Remind me to <input name="text" value="{{ values.text or '' }}" required maxlength="200"></label>
+    <label>When <input type="datetime-local" name="remind_at" value="{{ values.remind_at or '' }}" required></label>
+    <label class="check-label"><input type="checkbox" name="shared" value="1"{% if values.shared %} checked{% endif %}> Share with family</label>
+    <button type="submit">Add</button>
+  </form>
+</section>
+{% endif %}
+<section class="card">
+  <ul class="items">
+  {% for r in reminders %}
+    <li class="{{ 'done' if r.done }}{{ ' due' if not r.done and r.remind_at <= now }}">
+      <form method="post" action="{{ url_for('reminders.toggle', reminder_id=r.id) }}" class="inline">
+        {{ csrf_field() }}
+        <button type="submit" class="check" title="{{ 'Mark not done' if r.done else 'Mark done' }}">{{ '✓' if r.done else '○' }}</button>
+      </form>
+      <span>{{ r.text }}</span>
+      <span class="meta">{{ r.remind_at|when }}{% if r.shared %} · shared{% if not r.mine %} by {{ r.made_by }}{% endif %}{% endif %}</span>
+      {% if r.mine %}
+      <form method="post" action="{{ url_for('reminders.archive', reminder_id=r.id) }}" class="inline end">
+        {{ csrf_field() }}<button type="submit" class="link">{{ 'Restore' if archived else 'Archive' }}</button>
+      </form>
+      <form method="post" action="{{ url_for('reminders.share', reminder_id=r.id) }}" class="inline">
+        {{ csrf_field() }}<button type="submit" class="link">{{ 'Unshare' if r.shared else 'Share' }}</button>
+      </form>
+      <form method="post" action="{{ url_for('reminders.delete', reminder_id=r.id) }}" class="inline">
+        {{ csrf_field() }}<button type="submit" class="link">Delete</button>
+      </form>
+      {% endif %}
+    </li>
+  {% else %}<li class="empty">{{ 'Nothing archived.' if archived else 'No reminders.' }}</li>{% endfor %}
+  </ul>
+</section>
+{% endblock %}

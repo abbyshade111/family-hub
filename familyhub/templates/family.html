@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Family{% endblock %}
+{% block content %}
+<h1>Family settings</h1>
+<section class="card">
+  <h2>Name</h2>
+  <form method="post" action="{{ url_for('family.rename') }}" class="row">
+    {{ csrf_field() }}
+    <label class="grow">Family name <input name="name" value="{{ g.user.family_name }}" required maxlength="80"></label>
+    <button type="submit">Save</button>
+  </form>
+</section>
+<section class="card">
+  <h2>Members</h2>
+  <ul class="items">
+  {% for m in members %}
+    <li>
+      <span>{{ m.display_name }}</span> <span class="meta">{{ m.email }}{% if m.role == 'admin' %} · admin{% endif %}</span>
+      {% if m.role != 'admin' %}
+      <form method="post" action="{{ url_for('family.promote', member_id=m.id) }}" class="inline end row">
+        {{ csrf_field() }}
+        {% if g.user.has_password %}
+        <label>Your password <input type="password" name="password" autocomplete="current-password" required maxlength="128"></label>
+        {% endif %}
+        <button type="submit" class="secondary">Make admin</button>
+      </form>
+      {% endif %}
+    </li>
+  {% endfor %}
+  </ul>
+</section>
+<section class="card">
+  <h2>Invite someone</h2>
+  {% if new_invite %}
+  <p class="notice">Give this code to the person you're inviting. It works once, for {{ invite_days }} days, and won't be shown again:</p>
+  <p class="code">{{ new_invite }}</p>
+  {% endif %}
+  <p>{{ open_invites }} unused invite code{{ '' if open_invites == 1 else 's' }}.</p>
+  <div class="row">
+    <form method="post" action="{{ url_for('family.create_invite') }}">
+      {{ csrf_field() }}<button type="submit">Make an invite code</button>
+    </form>
+    {% if open_invites %}
+    <form method="post" action="{{ url_for('family.revoke_invites') }}">
+      {{ csrf_field() }}<button type="submit" class="secondary">Cancel unused codes</button>
+    </form>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

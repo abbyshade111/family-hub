@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h1>{{ g.user.family_name }}</h1>
+<p class="hint">Signed in as {{ g.user.display_name }}</p>
+{% if due_reminders %}
+<section class="card attention">
+  <h2>Reminders due</h2>
+  <ul class="items">
+  {% for r in due_reminders %}
+    <li>
+      <form method="post" action="{{ url_for('reminders.toggle', reminder_id=r.id) }}" class="inline">
+        {{ csrf_field() }}<input type="hidden" name="back" value="home">
+        <button type="submit" class="check" title="Mark done">○</button>
+      </form>
+      <span>{{ r.text }}</span> <span class="meta">{{ r.remind_at|when }}{% if r.shared %} · shared{% if not r.mine %} by {{ r.made_by }}{% endif %}{% endif %}</span>
+    </li>
+  {% endfor %}
+  </ul>
+</section>
+{% endif %}
+<div class="grid">
+  <section class="card">
+    <h2><a href="{{ url_for('calendar.index') }}">Coming up</a></h2>
+    <ul class="items">
+    {% for e in events %}
+      <li><a href="{{ url_for('calendar.show', event_id=e.id) }}">{{ e.title }}</a> <span class="meta">{{ e.starts_at|when }}</span></li>
+    {% else %}<li class="empty">Nothing on the calendar.</li>{% endfor %}
+    </ul>
+  </section>
+  <section class="card">
+    <h2><a href="{{ url_for('todos.index') }}">Your to-dos</a></h2>
+    <ul class="items">
+    {% for t in my_todos %}
+      <li><a href="{{ url_for('todos.show', todo_id=t.id) }}">{{ t.title }}</a>{% if t.due_date %} <span class="meta">due {{ t.due_date|day }}</span>{% endif %}</li>
+    {% else %}<li class="empty">Nothing assigned to you.</li>{% endfor %}
+    </ul>
+  </section>
+  <section class="card">
+    <h2><a href="{{ url_for('groceries.index') }}">Groceries</a></h2>
+    <p>{{ groceries_left }} item{{ '' if groceries_left == 1 else 's' }} to get.</p>
+  </section>
+</div>
+{% endblock %}

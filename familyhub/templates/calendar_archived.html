@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Archived events{% endblock %}
+{% block content %}
+<p><a href="{{ url_for('calendar.index') }}">← Calendar</a></p>
+<h1>Archived events</h1>
+<p class="hint">Archived events are kept but hidden from the calendar. Restore one to bring it back.</p>
+<section class="card">
+  <ul class="items">
+  {% for e in events %}
+    <li>
+      <a href="{{ url_for('calendar.show', event_id=e.id) }}">{{ e.title }}</a>
+      <span class="meta">{{ e.starts_at|when }}{% if e.ends_at %} – {{ e.ends_at|when }}{% endif %}{% if e.added_by %} · {{ e.added_by }}{% endif %}</span>
+      <form method="post" action="{{ url_for('calendar.archive', event_id=e.id) }}" class="inline end">
+        {{ csrf_field() }}<button type="submit" class="link">Restore</button>
+      </form>
+      <form method="post" action="{{ url_for('calendar.delete', event_id=e.id) }}" class="inline">
+        {{ csrf_field() }}<button type="submit" class="link">Delete</button>
+      </form>
+    </li>
+  {% else %}<li class="empty">Nothing archived.</li>{% endfor %}
+  </ul>
+  {% if hidden %}<p class="hint">Showing the {{ events|length }} most recent; {{ hidden }} older archived event{{ '' if hidden == 1 else 's' }} aren't shown.</p>{% endif %}
+</section>
+{% endblock %}
