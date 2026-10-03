@@ -73,8 +73,8 @@ tls = "terminated-upstream"   # assumed: HTTPS is ended by a proxy or host in fr
 
 [repository]
 ci-cd = false
-# hosted-scm = ?              # not known: the repository has no remote yet
-# outside-contributors = ?    # not known
+hosted-scm = true             # github.com/abbyshade111/family-hub: main protected by a ruleset (pull request required, no force pushes or deletion); secret scanning with push protection and Dependabot alerts on
+outside-contributors = false  # the owner's decision, 2026-10-03: no contributions from outside people
 iac = false
 
 [capabilities.ai]
