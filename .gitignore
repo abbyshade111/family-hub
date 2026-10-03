@@ -8,3 +8,6 @@ securevibe-report/
 # Sign in with Apple: private keys and generated client secrets stay off the repository
 *.p8
 apple_client_secret*.txt
+# Local settings of AI coding tools: machine-specific, never pushed
+.mcp.json
+.codex/

@@ -145,7 +145,7 @@ file = "familyhub/db.py"
 fingerprint = "b1b5a97fd74de5a1"
 verdict = "false-alarm"
 why = "executescript(SCHEMA) runs the fixed schema text defined in this file; nothing from a request or from data is part of it."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -154,7 +154,7 @@ file = "familyhub/db.py"
 fingerprint = "88cd61d646a6f276"
 verdict = "false-alarm"
 why = "The ALTER TABLE upgrade takes table, column and type names from a fixed dict a few lines above; SQLite cannot bind names, and no input reaches them."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -163,7 +163,7 @@ file = "familyhub/limits.py"
 fingerprint = "044e91e04783ea9a"
 verdict = "false-alarm"
 why = "_count runs SQL text that every caller in this file writes out as a literal; the counted values are always passed separately as parameters."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -172,7 +172,7 @@ file = "familyhub/views/reminders.py"
 fingerprint = "d94d542e23f1fed9"
 verdict = "false-alarm"
 why = "The query joins in VISIBLE, a fixed piece of SQL defined in this file (kept in one place so the who-can-see rule can't drift); all values are bound by name."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -181,7 +181,7 @@ file = "familyhub/views/reminders.py"
 fingerprint = "b8e490db2c63091c"
 verdict = "false-alarm"
 why = "Same as the other reminder queries: the fixed VISIBLE text from this file plus bound parameters (:me, :family, :id); no input becomes SQL text."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -190,7 +190,7 @@ file = "familyhub/views/todos.py"
 fingerprint = "f7491774a47e2759"
 verdict = "false-alarm"
 why = "The query is a fixed column list from this function joined to a fixed WHERE clause; the family id and archived flag are bound parameters."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -199,7 +199,7 @@ file = "familyhub/views/todos.py"
 fingerprint = "35a17463122b83fc"
 verdict = "false-alarm"
 why = "Same fixed column list and fixed WHERE clause as the line above it; family id, archived flag and limit are bound parameters."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -208,7 +208,7 @@ file = "tests/test_access.py"
 fingerprint = "d3b42630898dc077"
 verdict = "false-alarm"
 why = "Test-only helper: the table names come from a fixed tuple written in the test, to snapshot the database; no outside input."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -217,7 +217,7 @@ file = "tests/test_archive_logs_backups.py"
 fingerprint = "db4f3cb449d6206a"
 verdict = "false-alarm"
 why = "Test-only helper: the table name is passed by the test itself from a fixed set of names; no outside input reaches it."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -226,7 +226,7 @@ file = "tests/test_auth.py"
 fingerprint = "1d3d923df9c256ef"
 verdict = "false-alarm"
 why = "Test-only check: the table names come from a fixed tuple written in the test, to count rows after an account is deleted."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -235,7 +235,7 @@ file = "familyhub/views/account.py"
 fingerprint = "5c26a3c648994a24"
 verdict = "false-alarm"
 why = "WRONG_PASSWORD holds the error message shown to a person who typed the wrong password (\"Your current password isn't right.\"); it is not a credential and opens nothing."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -244,7 +244,7 @@ file = "tests/test_breached.py"
 fingerprint = "5fe6a22a0df6c14a"
 verdict = "false-alarm"
 why = "A made-up phrase a test uses as a new password while the leaked-password service is replaced by a fake; it is no one's password and protects no account anywhere."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -253,7 +253,7 @@ file = "tests/test_mfa.py"
 fingerprint = "2eff1c8aff1814b7"
 verdict = "false-alarm"
 why = "A made-up passphrase a test sets on a throwaway account in a temporary database that is deleted after the test; it is no one's real password and opens nothing."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -262,7 +262,7 @@ file = "familyhub/security.py"
 fingerprint = "0dcf017f7034554f"
 verdict = "false-alarm"
 why = "The path is the data folder from FAMILY_HUB_DATA, set by whoever runs the server, joined to the fixed name secret_key; nothing in a request reaches it."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -271,7 +271,7 @@ file = "tests/test_archive_logs_backups.py"
 fingerprint = "56829bf35246d78f"
 verdict = "false-alarm"
 why = "Test-only: writes placeholder files into the test's own temporary backup folder, with names built from a loop counter."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -280,7 +280,7 @@ file = "tests/test_archive_logs_backups.py"
 fingerprint = "00dfd7024bbb612f"
 verdict = "false-alarm"
 why = "Test-only: writes a fixed file name into the test's own temporary backup folder, to show the backup tool leaves other files alone."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -289,7 +289,7 @@ file = "tests/test_crypto_agility.py"
 fingerprint = "b76f022719621fc9"
 verdict = "false-alarm"
 why = "Test-only: reads the app's own source files found by walking the familyhub folder, to check no file picks its own hash."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -298,7 +298,7 @@ file = "familyhub/views/oauth.py"
 fingerprint = "96834a2ff1dc8d96"
 verdict = "false-alarm"
 why = "Sends the browser to the sign-in provider's published authorization endpoint, accepted only from exactly the configured issuer (HTTPS-only for Google and Apple); nothing in the request picks it."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -307,7 +307,7 @@ file = "tests/test_archive_logs_backups.py"
 fingerprint = "525bfd656a57a683"
 verdict = "false-alarm"
 why = "The test checks that another family's archive requests are refused by the server, which is server-side authorization (V8.3.1); it is phrased in different words from the requirement's text."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -316,7 +316,7 @@ file = "tests/test_limits.py"
 fingerprint = "192a5b0a59453b3b"
 verdict = "false-alarm"
 why = "The test checks the open to-dos limit from security-notes.md is enforced, which is a business limit implemented per the documentation (V2.3.2); it is phrased in different words from the requirement's text."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -325,7 +325,7 @@ file = "tests/test_mfa.py"
 fingerprint = "bb25c80f6c57cae9"
 verdict = "false-alarm"
 why = "The test checks that a password alone does not sign someone in when they have an authenticator app, which is multi-factor sign-in (V6.3.3); it is phrased in different words from the requirement's text."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -334,7 +334,7 @@ file = "tests/test_oidc.py"
 fingerprint = "98901b5f55f4a6d9"
 verdict = "false-alarm"
 why = "The test checks people are identified by the ID token's sub claim, not their email, which is what the requirement asks (V10.5.2); it is phrased in different words from the requirement's text."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -343,7 +343,7 @@ file = "tests/test_oidc.py"
 fingerprint = "72311620cd1a7f19"
 verdict = "false-alarm"
 why = "The test checks a provider's answer is refused in a browser other than the one that started the sign-in, which is binding to the user agent session (V10.1.2); it is phrased in different words from the requirement's text."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -352,7 +352,7 @@ file = "tests/test_oidc.py"
 fingerprint = "6e9419415befed52"
 verdict = "false-alarm"
 why = "The test checks an answer naming a different issuer is refused, which is the mix-up defence the requirement describes (V10.2.2); it is phrased in different words from the requirement's text."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
 
 [[finding-review]]
@@ -361,5 +361,5 @@ file = "tests/test_people.py"
 fingerprint = "e8da11a2d9d38a26"
 verdict = "false-alarm"
 why = "The test checks only an admin can promote, enforced by the server whatever the browser sends, which is server-side authorization (V8.3.1); it is phrased in different words from the requirement's text."
-by = "ai-tool"
+by = "owner"
 on = "2026-10-03"
