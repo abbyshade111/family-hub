@@ -1,0 +1,30 @@
+# Written by an AI coding tool (Claude Code) on 2026-10-03. Review it before installing it on a server.
+#
+# One backup of the database (tools/backup.py), run daily by familyhub-backup.timer.
+# Install as /etc/systemd/system/familyhub-backup.service.
+
+[Unit]
+Description=Family Hub database backup
+After=local-fs.target
+
+[Service]
+Type=oneshot
+User=familyhub
+Group=familyhub
+WorkingDirectory=/opt/family-hub
+EnvironmentFile=/etc/family-hub/env
+ExecStart=/usr/bin/python3 -B /opt/family-hub/tools/backup.py
+UMask=0077
+
+NoNewPrivileges=yes
+ProtectSystem=strict
+# SQLite's backup reads the live database (and may touch its -wal/-shm files) and writes the copies.
+ReadWritePaths=/var/lib/family-hub /var/backups/family-hub
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateNetwork=yes
+CapabilityBoundingSet=
+RestrictNamespaces=yes
+LockPersonality=yes
+SystemCallArchitectures=native

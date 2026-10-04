@@ -1,0 +1,16 @@
+# Written by an AI coding tool (Claude Code) on 2026-10-03. Review it before installing it on a server.
+#
+# Runs familyhub-backup.service once a day. Install as /etc/systemd/system/familyhub-backup.timer
+# and enable it with: sudo systemctl enable --now familyhub-backup.timer
+
+[Unit]
+Description=Daily Family Hub database backup
+
+[Timer]
+OnCalendar=*-*-* 03:15:00
+RandomizedDelaySec=15min
+# If the server was off at 03:15, run once it's back.
+Persistent=true
+
+[Install]
+WantedBy=timers.target
