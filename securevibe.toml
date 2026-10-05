@@ -17,7 +17,7 @@ build = ""                # packages are installed into ./vendor ahead of time; 
 # sv checks the app from another container on its fenced network, over plain HTTP, where a browser drops
 # Secure cookies; FAMILY_HUB_INSECURE_COOKIES=1 is for this test run only. Production keeps Secure cookies,
 # which tests/test_auth.py (test_session_cookie_flags) checks.
-start = "FAMILY_HUB_INSECURE_COOKIES=1 python run.py --host 0.0.0.0 --port $PORT"
+start = "FAMILY_HUB_INSECURE_COOKIES=1 python serve.py --host 0.0.0.0 --port $PORT"   # the production server, as in Procfile
 test = "python tests/run_tests.py --junit /sv-reports/junit.xml"
 test-report = "junit.xml"
 health = "/health"
@@ -362,4 +362,13 @@ fingerprint = "e8da11a2d9d38a26"
 verdict = "false-alarm"
 why = "The test checks only an admin can promote, enforced by the server whatever the browser sends, which is server-side authorization (V8.3.1); it is phrased in different words from the requirement's text."
 by = "owner"
+on = "2026-10-03"
+
+[[finding-review]]
+rule = "ast.file-path-from-value"
+file = "tests/test_requestlog.py"
+fingerprint = "ee5e98208be38327"
+verdict = "false-alarm"
+why = "Test-only: opens the app's own Procfile at the repository root, found from the test file's location, to check it starts serve.py; nothing from a request or user reaches the path."
+by = "ai-tool"
 on = "2026-10-03"

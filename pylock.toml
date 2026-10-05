@@ -68,6 +68,17 @@ url = "https://files.pythonhosted.org/packages/ca/e0/4030bea613677e333c8a2c901fd
 sha256 = "73e77980c7207854f00fc4e71fb1626868d5740ab4012623d55c7a99ad122a72"
 
 [[packages]]
+name = "waitress"
+version = "3.0.2"
+
+[[packages.wheels]]
+name = "waitress-3.0.2-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/8d/57/a27182528c90ef38d82b636a11f606b0cbb0e17588ed205435f8affe3368/waitress-3.0.2-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "c56d67fd6e87c2ee598b76abdd4e96cfad1f24cacdea5078d382b1f9d7b5ed2e"
+
+[[packages]]
 name = "werkzeug"
 version = "3.1.9"
 

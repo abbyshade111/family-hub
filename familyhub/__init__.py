@@ -5,6 +5,7 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 from werkzeug.routing import IntegerConverter
 
 from . import audit, db, forms, oidc, security
+from .requestlog import RequestLog
 
 NOTICES = {
     "welcome": "Welcome to Family Hub.",
@@ -70,6 +71,9 @@ def create_app(config=None):
     # FAMILY_HUB_TRUSTED_PROXIES to the number of proxies in front of the app so the
     # visitor's address is read from X-Forwarded-For instead. Left at 0, that header
     # is ignored, because a visitor could otherwise choose their own address.
+    if app.config.get("REQUEST_LOG"):
+        # Inside the proxy handling below, so it records the visitor's address, not the proxy's.
+        app.wsgi_app = RequestLog(app.wsgi_app)
     trusted_proxies = int(os.environ.get("FAMILY_HUB_TRUSTED_PROXIES", "0"))
     if trusted_proxies:
         app.wsgi_app = ProxyFix(app.wsgi_app, x_for=trusted_proxies)
