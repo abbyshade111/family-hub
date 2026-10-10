@@ -382,7 +382,7 @@ def content_security_policy():
     # Forms on the Account page lead on to the sign-in providers, so they are allowed as form targets.
     form_action = " ".join(["'self'", *oidc.provider_origins()])
     return (
-        f"default-src 'none'; style-src 'self'; img-src 'self'; form-action {form_action}; "
+        f"default-src 'none'; style-src 'self'; img-src 'self'; manifest-src 'self'; form-action {form_action}; "
         "frame-ancestors 'none'; base-uri 'none'; report-uri /csp-report; report-to csp"
     )
 

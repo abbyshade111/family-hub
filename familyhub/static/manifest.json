@@ -1,0 +1,15 @@
+{
+  "name": "Family Hub",
+  "short_name": "Family Hub",
+  "description": "Calendar, to-dos, groceries and reminders for the family.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f6f4ef",
+  "theme_color": "#2f6f5e",
+  "icons": [
+    {"src": "static/icons/icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "static/icons/icon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "static/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}

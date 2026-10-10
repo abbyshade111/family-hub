@@ -98,3 +98,9 @@ a.button.secondary { background: none; color: var(--accent); }
 .check-label input { width: auto; }
 .codes { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: 0.25rem 1rem; }
 code { font-family: ui-monospace, Menlo, monospace; }
+
+/* Touch screens: make tap targets at least 44px tall, the size Apple recommends. */
+@media (pointer: coarse) {
+  button, a.button, .top nav a { min-height: 2.75rem; display: inline-flex; align-items: center; }
+  button.check { min-width: 2.75rem; justify-content: center; }
+}
