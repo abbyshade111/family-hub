@@ -100,39 +100,39 @@ context-words = ["familyhub"]
 fix-within-days = { critical = 7, high = 30, medium = 90, low = 180 }   # owner's decision, 2026-10-03
 
 [design]
-"V2.2.2" = { answer = "yes", where = "familyhub/forms.py", by = "owner" }   # owner reviewed FormReader, 2026-10-03
-"V7.2.1" = { answer = "yes", where = "familyhub/security.py", by = "owner" }   # owner reviewed load_user(), 2026-10-03
-"V8.3.1" = { answer = "yes", where = "familyhub/security.py", by = "owner" }   # owner reviewed the decorators here and the *_or_404 helpers in familyhub/views/, 2026-10-03
-"V15.3.1" = { answer = "yes", where = "familyhub/templates/todo.html", by = "owner" }   # owner compared the event and to-do pages' source with what they show; the server-rendered templates in familyhub/templates/ decide what is sent, 2026-10-03
-"V1.1.1" = { answer = "yes", where = "familyhub/forms.py", by = "owner" }   # 2026-10-03; ID tokens: decode_id_token then check_claims in familyhub/oidc.py
-"V4.1.3" = { answer = "not-sure", by = "owner" }   # 2026-10-03: depends on the hosting, not chosen yet; FAMILY_HUB_TRUSTED_PROXIES must match the real proxies
-"V4.2.1" = { answer = "not-sure", by = "owner" }   # 2026-10-03: depends on the proxy and production server, neither chosen yet
-"V8.2.3" = { answer = "yes", where = "familyhub/views/todos.py", by = "owner" }   # owner reviewed the UPDATE statements in familyhub/views/, 2026-10-03
-"V10.1.1" = { answer = "yes", where = "familyhub/oidc.py", by = "owner" }   # owner reviewed exchange_code/check_claims and the callback in familyhub/views/oauth.py, 2026-10-03
-"V11.2.2" = { answer = "yes", where = "familyhub/security.py", by = "owner" }   # 2026-10-03: lookup_hash() and self-describing password hashes, upgraded on sign-in
-"V13.2.1" = { answer = "yes", where = "familyhub/db.py", by = "owner" }   # changed by the owner 2026-10-03: the only backend component is the local SQLite file (no network, owner-only file permissions); Google's fixed client secret is handled under the key plan (V11.1.1)
-"V13.2.2" = { answer = "not-sure", by = "owner" }   # 2026-10-03: provider scopes are openid email only; the OS user the app runs as depends on hosting, not chosen yet
-"V14.2.2" = { answer = "yes", where = "familyhub/security.py", by = "owner" }   # owner reviewed add_headers (Cache-Control: no-store on every response), 2026-10-03
-"V15.3.4" = { answer = "not-sure", by = "owner" }   # 2026-10-03: same as V4.1.3; FAMILY_HUB_TRUSTED_PROXIES must match the hosting, not chosen yet
-"V16.2.2" = { answer = "yes", where = "familyhub/audit.py", by = "owner" }   # 2026-10-03: utc_timestamp() for the security and request logs; clock sync is the host's (NTP)
-"V16.4.3" = { answer = "not-sure", by = "owner" }   # 2026-10-03: the app logs to the console; whether the host ships it to a separate system depends on hosting, not chosen yet
+"V2.2.2" = { answer = "yes", where = "familyhub/forms.py", by = "owner" , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040a0dec7f012d2d1721f7b79cf57e54d3050c6e78836d09dd7fbf82fb5b859c5e427ea932ddd93da0972fced96f6b7ab54cd391e9591318388fab1557017a7ae07" }   # owner reviewed FormReader, 2026-10-03
+"V7.2.1" = { answer = "yes", where = "familyhub/security.py", by = "owner" , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d656432353531390000004050786fa8e328de7a4ee345c30e70ae8b737c115a0367e2e022b8b6875780f23b641ee857a73dff59ef128dfbae934253a419ca8826f32d8bbb9900e129a7ba01" }   # owner reviewed load_user(), 2026-10-03
+"V8.3.1" = { answer = "yes", where = "familyhub/security.py", by = "owner" , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040570d5b8e919adaa2e947735a32f0dc79f463103a6021eb1e00c897270b25bbac7fd5e010683d1d2d757a6175165877ef9d468c7958ab046e7574e01629c9b306" }   # owner reviewed the decorators here and the *_or_404 helpers in familyhub/views/, 2026-10-03
+"V15.3.1" = { answer = "yes", where = "familyhub/templates/todo.html", by = "owner" , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040607de87a100874835c0e12a994f9eb8f28dfb644f67b4c95ee558f2a6eb9906b089eea537b741f2446b2321e3bc0cc67ca0706a5c86767dc7c24838901846600" }   # owner compared the event and to-do pages' source with what they show; the server-rendered templates in familyhub/templates/ decide what is sent, 2026-10-03
+"V1.1.1" = { answer = "yes", where = "familyhub/forms.py", by = "owner" , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040f64a1bebec9b0837764a0c05faa3c34844ee9e817ecdfe2e3db55db85719a45f82720d4c3093b4b5688d8e32f917feef7a859952edc55b84e88709a13a3f640f" }   # 2026-10-03; ID tokens: decode_id_token then check_claims in familyhub/oidc.py
+"V4.1.3" = { answer = "not-sure", by = "owner" , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d656432353531390000004057437acdab03e9104499b8002d5cff10309ddfc62f71239dde60da2d9cedde743662d3f9993036f4e2e15cc0c474adc899c96c3c365e733c987f6984b4206d0a" }   # 2026-10-03: depends on the hosting, not chosen yet; FAMILY_HUB_TRUSTED_PROXIES must match the real proxies
+"V4.2.1" = { answer = "not-sure", by = "owner" , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040d10262f2806b2cc2347c6014fe6a62b65c20516d45d1afb6097359d6c13ca36d283fd483c55da950a56d23d55bed95f7d3a87995117d4cff0080f89db5b10c04" }   # 2026-10-03: depends on the proxy and production server, neither chosen yet
+"V8.2.3" = { answer = "yes", where = "familyhub/views/todos.py", by = "owner" , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d65643235353139000000408b320b04b7c5de5b2ea5b3c1f9435c08467a2fdc456d84693b31f3480624c9be6d378d9792f2a6cc7090b91dc62e798cc51b89dbbf5ea9e0afa1adf56bb9290d" }   # owner reviewed the UPDATE statements in familyhub/views/, 2026-10-03
+"V10.1.1" = { answer = "yes", where = "familyhub/oidc.py", by = "owner" , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d65643235353139000000404121d22bdb36dc274e23bc0a1cbab7a71150271a7aa8f19c833cf68466de8ce190b928a099c4450486b50197084468a6b411a7f9ca7b7942b87ddac769390f03" }   # owner reviewed exchange_code/check_claims and the callback in familyhub/views/oauth.py, 2026-10-03
+"V11.2.2" = { answer = "yes", where = "familyhub/security.py", by = "owner" , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040935e69ea4e61f35fcabeec7431f7641715ed5223a5361ff616b737cfb1e4889ca3e0a6d2a073c63cccb3c59a8df3ca6f44fbddc81fd04e5f766b46d4be81c50c" }   # 2026-10-03: lookup_hash() and self-describing password hashes, upgraded on sign-in
+"V13.2.1" = { answer = "yes", where = "familyhub/db.py", by = "owner" , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d65643235353139000000406d1ce1dda0d19bef8572d4b653afe300650d2dd2db217230ba45884b8416d54808b6e13f46b7fdf9d194ac34fb0b493bbbeb5edf24f56c86c71cd63398ffe702" }   # changed by the owner 2026-10-03: the only backend component is the local SQLite file (no network, owner-only file permissions); Google's fixed client secret is handled under the key plan (V11.1.1)
+"V13.2.2" = { answer = "not-sure", by = "owner" , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d656432353531390000004091200e198dfa6860cbb65fbd63aeca72ae9e9586fbd2c71bb887008581270cca17ad3e75cae66ee84ba68656ced9289c1b036903e39b85d33f422e7b83e42f0e" }   # 2026-10-03: provider scopes are openid email only; the OS user the app runs as depends on hosting, not chosen yet
+"V14.2.2" = { answer = "yes", where = "familyhub/security.py", by = "owner" , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d656432353531390000004096031d6dd1dc16ed7ed90c1d10b95066826ae9af49f03d7d50e374f3fea3dc199095b51a195ec2ea6e5f5c28ae6e7eba9e574916f180a76d9ba078c7c53ae505" }   # owner reviewed add_headers (Cache-Control: no-store on every response), 2026-10-03
+"V15.3.4" = { answer = "not-sure", by = "owner" , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040ebb14cc02b87aaa82d044c1f9b56389438cdff4bbef7fc1dbe0cc917e7eadd6bd064e36cb566f877a5ab756dd80f1983ef41f826a1481a33d67f9cdb7057e802" }   # 2026-10-03: same as V4.1.3; FAMILY_HUB_TRUSTED_PROXIES must match the hosting, not chosen yet
+"V16.2.2" = { answer = "yes", where = "familyhub/audit.py", by = "owner" , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d656432353531390000004098acd2707756e7fcde90d6603e1036125dcd6c7dc98730015218f555abc82e3dad9d08666e89f8e55029a2bcd20245edb38a62d9fa5a5bfac636e9ed88e63e0b" }   # 2026-10-03: utc_timestamp() for the security and request logs; clock sync is the host's (NTP)
+"V16.4.3" = { answer = "not-sure", by = "owner" , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d656432353531390000004079a81dadda84fca268ebcc3cdb038f6e32b1ad63d7e6830e134317d503aa89262a6f50f3eff5a06136ee2d3f28cb73925f99b06ab61765705738a572a053b50b" }   # 2026-10-03: the app logs to the console; whether the host ships it to a separate system depends on hosting, not chosen yet
 
 [checked-by-hand]
-"V6.3.3" = { result = "done", on = "2026-10-03", by = "owner", how = "Signed up as a family admin, set up an authenticator app, signed out and back in: after the email and password the app asked for the authenticator code, and the code got me in and Family opened." }
-"V6.2.11" = { result = "done", on = "2026-10-03", by = "owner", how = "Tried to create an account with the password myfamilyhubpassword2026; it was refused with the message about not building a password from the app's name, your email address, or your name." }
-"V6.2.12" = { result = "done", on = "2026-10-03", by = "owner", how = "Tried to create an account with the passwords qwerty123456 and iloveyou1234; both were refused with the message that the password has appeared in a data breach." }
-"V13.4.5" = { result = "done", on = "2026-10-03", by = "owner", how = "Signed out, tried /admin, /debug, /docs, /swagger, /metrics, /.git and /console: all showed not found; /health showed only ok; /family went to sign in." }
-"V14.2.3" = { result = "done", on = "2026-10-03", by = "owner", how = "Signed in and used every page, added items, signed out and back in, with Safari's Web Inspector Network tab recording: all requests went to localhost only." }
-"V16.3.3" = { result = "done", on = "2026-10-03", by = "owner", how = "Signed in with a wrong password, then a wrong authenticator code, then the right one, signed out everywhere else and signed out: the console showed sign_in failed, needs_code, mfa_check failed and ok, sign_in ok, sign_out_others and sign_out, with no email or password anywhere." }
-"V16.2.3" = { result = "done", on = "2026-10-03", by = "owner", how = "Listed /tmp/family-hub (only family.db and secret_key, owner-only) and searched the app folder for .log files (none); logs appear only on the console." }
-"V6.3.4" = { result = "done", on = "2026-10-03", by = "owner", how = "Signed out, checked the sign-in page offers only email and password, and tried /login/google, /login/apple, /login/oidc, /signup/finish, /login/2fa and a made-up callback: none signed me in; found no way in that is not on the list in security-notes.md (V6.1.3)." }
-"V6.4.4" = { result = "done", on = "2026-10-03", by = "owner", how = "Signed in with my password and a saved recovery code in place of the authenticator code: it got me in; signing in again with the same recovery code was refused." }
-"V2.3.4" = { result = "done", on = "2026-10-03", by = "owner", how = "Made one invite code and submitted sign-up with it in two private windows as close together as I could: one got in, the other was refused as invalid." }
-"V2.3.2" = { result = "done", on = "2026-10-03", by = "owner", how = "Made invite codes as an admin: 20 worked, the 21st was refused with the limit message. Only the invite limit was tried by hand; the larger limits are covered by tests/test_limits.py." }
-"V14.1.1" = { result = "done", on = "2026-10-03", by = "owner", how = "Listed the database tables and compared them, with the secret_key file, the console log and backups, against the kinds of data in security-notes.md (V14.1.2): every table was accounted for and nothing was more sensitive than noted." }
-"V14.2.4" = { result = "done", on = "2026-10-03", by = "owner", how = "Added a reminder as a member, then deleted that account: the reminder count in the database went from 1 to 0. The security log was checked for personal data in V16.3.3." }
-"V7.3.1" = { result = "done", on = "2026-10-03", by = "owner", how = "Signed in, left the tab alone for 33 minutes, then clicked a button: the action was refused and the session had ended, but the app showed an error page instead of the sign-in page (since fixed)." }
-"AC.4.1" = { result = "done", on = "2026-10-03", by = "owner", how = "High-level review of all the code the AI wrote; nothing deployed yet." }
+"V6.3.3" = { result = "done", on = "2026-10-03", by = "owner", how = "Signed up as a family admin, set up an authenticator app, signed out and back in: after the email and password the app asked for the authenticator code, and the code got me in and Family opened." , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d656432353531390000004031a78df7e71cee9ad035a114545e9a6ba0122c8992c360a62788fd009c29404ebe901f09d5e9102a4a346240e389d064777de758a33f033e3f0c702884f96c02" }
+"V6.2.11" = { result = "done", on = "2026-10-03", by = "owner", how = "Tried to create an account with the password myfamilyhubpassword2026; it was refused with the message about not building a password from the app's name, your email address, or your name." , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d65643235353139000000401744fcf508faba082bf956b88d81b5927680d883f4a432b19e1834f834c0cfde8273f1db119ea3d25477029b45aefd32a4bc497f3a446de75cbfc343c8a71806" }
+"V6.2.12" = { result = "done", on = "2026-10-03", by = "owner", how = "Tried to create an account with the passwords qwerty123456 and iloveyou1234; both were refused with the message that the password has appeared in a data breach." , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040f9e25103dc51edc3d50007badb412a0cd02635ef6ffcd33e0385ba2ea3e7b2711cfbbf20d95573ffa6c6d42b93280da553066f0283f9dcadc342ab1c40d9950a" }
+"V13.4.5" = { result = "done", on = "2026-10-03", by = "owner", how = "Signed out, tried /admin, /debug, /docs, /swagger, /metrics, /.git and /console: all showed not found; /health showed only ok; /family went to sign in." , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040a820b4ae6ad44f254462dc23795c5298d0e6459a51c81779601976c30ee9c759f3f23ad934539b3fcb419edc464b0395ebac7b3496097d94b0c9c022041d9901" }
+"V14.2.3" = { result = "done", on = "2026-10-03", by = "owner", how = "Signed in and used every page, added items, signed out and back in, with Safari's Web Inspector Network tab recording: all requests went to localhost only." , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d656432353531390000004038d5c79683d3df43fc4aa54076058d169e616654eaab43d2ff0323473474610ff6eda450705b6ec81e69db2511cab22f59705f9e913a72333af0fa41ee2fb001" }
+"V16.3.3" = { result = "done", on = "2026-10-03", by = "owner", how = "Signed in with a wrong password, then a wrong authenticator code, then the right one, signed out everywhere else and signed out: the console showed sign_in failed, needs_code, mfa_check failed and ok, sign_in ok, sign_out_others and sign_out, with no email or password anywhere." , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d65643235353139000000404698f556343f6120a0c8167c24a5819298700b4fec26bd710608ef62b9a43e78d7533c72f8e70ca27291887df6404ac14575698106cf33f57819ad5d77c7100f" }
+"V16.2.3" = { result = "done", on = "2026-10-03", by = "owner", how = "Listed /tmp/family-hub (only family.db and secret_key, owner-only) and searched the app folder for .log files (none); logs appear only on the console." , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040556cf6da131851683db3aa42dee7d12e2438ebb2dab6df216ae2cd950d5907d6f5a2d15eb677beeecd981f7f2e42d809a8da280c61e4065b584dc8b349b6bb01" }
+"V6.3.4" = { result = "done", on = "2026-10-03", by = "owner", how = "Signed out, checked the sign-in page offers only email and password, and tried /login/google, /login/apple, /login/oidc, /signup/finish, /login/2fa and a made-up callback: none signed me in; found no way in that is not on the list in security-notes.md (V6.1.3)." , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d65643235353139000000406ba5afb5354680de9f99288202d9a6b3369df9697ade12eb992583d0c688139807d4a1a9888c3585873aede56b18d49717729c179bfacfa3b1eae2fd7ef98200" }
+"V6.4.4" = { result = "done", on = "2026-10-03", by = "owner", how = "Signed in with my password and a saved recovery code in place of the authenticator code: it got me in; signing in again with the same recovery code was refused." , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040faf1c68b2db45bf9522a8138cd34f12ed10148168e5e25f46cb4495e3c12355d45004989344dafdbf315cc66e1ddcc8373e9fc417fbd34905dfdd12acaaf040e" }
+"V2.3.4" = { result = "done", on = "2026-10-03", by = "owner", how = "Made one invite code and submitted sign-up with it in two private windows as close together as I could: one got in, the other was refused as invalid." , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d65643235353139000000406db8acf58bcf254f8f6d4f61e879a011da61b6348893f74d0cc42d6849f2efa05deb04523ec7c61105c37c80340b4a3030b0159fb6060a09807a2f6158821203" }
+"V2.3.2" = { result = "done", on = "2026-10-03", by = "owner", how = "Made invite codes as an admin: 20 worked, the 21st was refused with the limit message. Only the invite limit was tried by hand; the larger limits are covered by tests/test_limits.py." , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d65643235353139000000402746999b8fef7576fa2f7306983bc519408b8176b7ed4778c3ae7723ca7d666d9695103a3a92dfac1e0561f66a5b1d03bcbf975bfae7913de618037ef41b7e01" }
+"V14.1.1" = { result = "done", on = "2026-10-03", by = "owner", how = "Listed the database tables and compared them, with the secret_key file, the console log and backups, against the kinds of data in security-notes.md (V14.1.2): every table was accounted for and nothing was more sensitive than noted." , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040f9473853948ca9263ce2b477804ad7595dda363bf6a57dae2f1c697484e7f23930acf1a5ed1769dfffcd0236a204bd88bde2a9acecfff9d593e5f3645a100e01" }
+"V14.2.4" = { result = "done", on = "2026-10-03", by = "owner", how = "Added a reminder as a member, then deleted that account: the reminder count in the database went from 1 to 0. The security log was checked for personal data in V16.3.3." , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040af131d20a24456b5ef68c7d974f5c70bcc38a02b04ca5a411c58c1f373c3c83d045a695ab50dcf4941085fc304fcf2b3c7ef629385ee2ec229f3ee862a8cd300" }
+"V7.3.1" = { result = "done", on = "2026-10-03", by = "owner", how = "Signed in, left the tab alone for 33 minutes, then clicked a button: the action was refused and the session had ended, but the app showed an error page instead of the sign-in page (since fixed)." , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d656432353531390000004075ce2f5afcb7b84731e5700469267daf55d85e2cfeea1f45b65dc907ebff0b64ef82547f08eaabc503f09af82c675f0f43460a8d469a161ece61e2956bd4970d" }
+"AC.4.1" = { result = "done", on = "2026-10-03", by = "owner", how = "High-level review of all the code the AI wrote; nothing deployed yet." , seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d656432353531390000004076a5130206211a7d8ec45bd7ec0e31955059de5d9bc11aa3a7ae2c40fbe80b03ae65899011eec7bfb67d41936b05fc2988aba18e1ca0a8cb5b067724c5cb1d0a" }
 
 # ---------------------------------------------------------------------------------------------
 # Findings the AI coding tool thinks are false alarms. PROPOSALS ONLY: with by = "ai-tool" they
@@ -142,29 +142,32 @@ fix-within-days = { critical = 7, high = 30, medium = 90, low = 180 }   # owner'
 [[finding-review]]
 rule = "ast.sql-built-by-hand"
 file = "familyhub/db.py"
-fingerprint = "b1b5a97fd74de5a1"
+fingerprint = "v2-8283ec4e6928460c"
 verdict = "false-alarm"
 why = "executescript(SCHEMA) runs the fixed schema text defined in this file; nothing from a request or from data is part of it."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d65643235353139000000400c6d972a8b4960ba3efdfcb8bcafbd5244ccc415af78419c0b096ef862c682db67f6f20d22f76718f90e90818d5c93bfb9f4ba5c477773954250fdc28144a009"
 
 [[finding-review]]
 rule = "ast.sql-built-by-hand"
 file = "familyhub/db.py"
-fingerprint = "88cd61d646a6f276"
+fingerprint = "v2-4b5dc5335da9644f"
 verdict = "false-alarm"
 why = "The ALTER TABLE upgrade takes table, column and type names from a fixed dict a few lines above; SQLite cannot bind names, and no input reaches them."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d656432353531390000004088a4c4ed07a90d4574736198db3f2bd20950f1d0d50aac16ed7f256579f8ed17bb34fe4fd2e7448ebb6d51483932072d0ca17852c480e87eb2b7668e98f75b0c"
 
 [[finding-review]]
 rule = "ast.sql-built-by-hand"
 file = "familyhub/limits.py"
-fingerprint = "044e91e04783ea9a"
+fingerprint = "v2-18b7b9b8d5d82af1"
 verdict = "false-alarm"
 why = "_count runs SQL text that every caller in this file writes out as a literal; the counted values are always passed separately as parameters."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040ba19a89481c4995a1e189c3558015b70c37c7215bf2fae7a03a0df3781b67f145ad0bbdb87ec70fb73d7cb7b63231a5259f32a1759d8a0b372ea27c52eb0880c"
 
 [[finding-review]]
 rule = "ast.sql-built-by-hand"
@@ -187,56 +190,62 @@ on = "2026-10-03"
 [[finding-review]]
 rule = "ast.sql-built-by-hand"
 file = "familyhub/views/todos.py"
-fingerprint = "f7491774a47e2759"
+fingerprint = "v2-5ab8b3394a944e7e"
 verdict = "false-alarm"
 why = "The query is a fixed column list from this function joined to a fixed WHERE clause; the family id and archived flag are bound parameters."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040eed6b04c7ddcadb07697163ed40e2d201b8a90e0e6c02d3bf9ec494ac20c6d156fe75dc1ae308576cbec5dfca385f45b2b311595eb0d9e5cf181d714cabea203"
 
 [[finding-review]]
 rule = "ast.sql-built-by-hand"
 file = "familyhub/views/todos.py"
-fingerprint = "35a17463122b83fc"
+fingerprint = "v2-53cad25d50635581"
 verdict = "false-alarm"
 why = "Same fixed column list and fixed WHERE clause as the line above it; family id, archived flag and limit are bound parameters."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d65643235353139000000407d547a528a5b974c53a6cbb2a5489492b157aaf8933ca3eac37e36b792836477c7d1beec7181678ffcaa3fc934c233d1f1dd0c630dc2730db3518587f8d36c04"
 
 [[finding-review]]
 rule = "ast.sql-built-by-hand"
 file = "tests/test_access.py"
-fingerprint = "d3b42630898dc077"
+fingerprint = "v2-2a77eb86ffa15190"
 verdict = "false-alarm"
 why = "Test-only helper: the table names come from a fixed tuple written in the test, to snapshot the database; no outside input."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040ead6c456fd87988aeb0070908458208e3aed5669460019d02d1b8e62b4a0bd8a9e772911cc1b34c8e7e600332c3fd3a1b908e943d2eabe9f4797627b22493c0b"
 
 [[finding-review]]
 rule = "ast.sql-built-by-hand"
 file = "tests/test_archive_logs_backups.py"
-fingerprint = "db4f3cb449d6206a"
+fingerprint = "v2-3570e1815588627b"
 verdict = "false-alarm"
 why = "Test-only helper: the table name is passed by the test itself from a fixed set of names; no outside input reaches it."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040b8e2098ab9667ea3e8bc9b7dc792882046d808da67cda6abd0cce55c74415805d07978a264f151f18249d1ddfccb2e924298d5d83670bacfabf8da05c68c2d0c"
 
 [[finding-review]]
 rule = "ast.sql-built-by-hand"
 file = "tests/test_auth.py"
-fingerprint = "1d3d923df9c256ef"
+fingerprint = "v2-2edb6f87c97ec6c8"
 verdict = "false-alarm"
 why = "Test-only check: the table names come from a fixed tuple written in the test, to count rows after an account is deleted."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040e1f40b0ef60f6da82465459fda4a008c94ea8acdcb8f06cfdc752665f8a26d172acfab8a2f705103b0e9aaafb1fc7c185a57a6c655646909b7f3c4da8bc5620e"
 
 [[finding-review]]
 rule = "secrets.credential-assignment"
 file = "familyhub/views/account.py"
 fingerprint = "5c26a3c648994a24"
 verdict = "false-alarm"
-why = "WRONG_PASSWORD holds the error message shown to a person who typed the wrong password (\"Your current password isn't right.\"); it is not a credential and opens nothing."
+why = """WRONG_PASSWORD holds the error message shown to a person who typed the wrong password ("Your current password isn't right."); it is not a credential and opens nothing."""
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d65643235353139000000408c74caf4f365259636c66a0207b754cf2ddef6357ca1cb950d7c58bdcacd76edd6513e12cf6bbd5528b0c995f697965afb299d59ce88aa1cf3452997f20b000c"
 
 [[finding-review]]
 rule = "secrets.credential-assignment"
@@ -245,7 +254,8 @@ fingerprint = "5fe6a22a0df6c14a"
 verdict = "false-alarm"
 why = "A made-up phrase a test uses as a new password while the leaked-password service is replaced by a fake; it is no one's password and protects no account anywhere."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d656432353531390000004055afed4a84876ade7392adf69468e9d35edb2786fa046c85e0bf22fe665ddb8a35bd815522fbe6572f267d7290069689113f9a6ddae9a4523a33291f42f5e501"
 
 [[finding-review]]
 rule = "secrets.credential-assignment"
@@ -254,52 +264,58 @@ fingerprint = "2eff1c8aff1814b7"
 verdict = "false-alarm"
 why = "A made-up passphrase a test sets on a throwaway account in a temporary database that is deleted after the test; it is no one's real password and opens nothing."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d656432353531390000004022e7532089ffb2cfc08fdacb0a27cd0d3280022e7782126d77dd145e4eb1e2c5f1a3758bdcab37430e5d794835b5c98d5fa1c3b2b85d59f7b765c73043104c06"
 
 [[finding-review]]
 rule = "ast.file-path-from-value"
 file = "familyhub/security.py"
-fingerprint = "0dcf017f7034554f"
+fingerprint = "v2-efe88e54efca772a"
 verdict = "false-alarm"
 why = "The path is the data folder from FAMILY_HUB_DATA, set by whoever runs the server, joined to the fixed name secret_key; nothing in a request reaches it."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040d6948f8b56e7ae7cb1add4a7de092d540f7eb8a9be1d75d4f6fe417ac328dd72944f5e2b1e0a4451659d91ecb8fb93f92553e536cdcc9faa2e70eda3a9d4a002"
 
 [[finding-review]]
 rule = "ast.file-path-from-value"
 file = "tests/test_archive_logs_backups.py"
-fingerprint = "56829bf35246d78f"
+fingerprint = "v2-3f5b69b4b096d221"
 verdict = "false-alarm"
 why = "Test-only: writes placeholder files into the test's own temporary backup folder, with names built from a loop counter."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d656432353531390000004060245a5598c72a6a9208d22935b9704cc1a1a96a9755f66ea19353bbe1a94b693365acf6dc4c0d46f5baf855f6a519c2146a28d9c9c40fa32d1c968732168200"
 
 [[finding-review]]
 rule = "ast.file-path-from-value"
 file = "tests/test_archive_logs_backups.py"
-fingerprint = "00dfd7024bbb612f"
+fingerprint = "v2-81e3964d2c0dec12"
 verdict = "false-alarm"
 why = "Test-only: writes a fixed file name into the test's own temporary backup folder, to show the backup tool leaves other files alone."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d65643235353139000000405638f7acb2d78f077e2d4caf9157c6adf7d0360eb1c10c05e166cb87753df2d63fc8712d74d2cca11930276697c4bbe86cf7df6a96fc622a79b7a9479321f206"
 
 [[finding-review]]
 rule = "ast.file-path-from-value"
 file = "tests/test_crypto_agility.py"
-fingerprint = "b76f022719621fc9"
+fingerprint = "v2-31c7b158998429f6"
 verdict = "false-alarm"
 why = "Test-only: reads the app's own source files found by walking the familyhub folder, to check no file picks its own hash."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d656432353531390000004017515fcb393d3f01c0628dbc9960c347e373cfd1e4fc4a0da3a5bf34fdb8dd458706ce22cfad79ab551d432ba4ebcc963a29d2e13d9b101a6d16c16e462d8d04"
 
 [[finding-review]]
 rule = "ast.open-redirect"
 file = "familyhub/views/oauth.py"
-fingerprint = "96834a2ff1dc8d96"
+fingerprint = "v2-27c5c661ef62359b"
 verdict = "false-alarm"
 why = "Sends the browser to the sign-in provider's published authorization endpoint, accepted only from exactly the configured issuer (HTTPS-only for Google and Apple); nothing in the request picks it."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040539ea36b1a7c6487a0483b7fe8ca23f780e589a5ae377600a0ab6fceb7dc9fc7093d4cb8024ab27cbc3c87b0890a2aa6813b23ebb9efdc3a0ca8b5f82a74a70d"
 
 [[finding-review]]
 rule = "tests.name-does-not-match-requirement"
@@ -308,7 +324,8 @@ fingerprint = "525bfd656a57a683"
 verdict = "false-alarm"
 why = "The test checks that another family's archive requests are refused by the server, which is server-side authorization (V8.3.1); it is phrased in different words from the requirement's text."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040c3728206172437ef091d97896efc735fdce87ed37a21d8fc9e6f87e0012c3c54d89f35d217203eca14d835b323a4be7ddd5ef48b5fb57b41b97b44a2df875609"
 
 [[finding-review]]
 rule = "tests.name-does-not-match-requirement"
@@ -317,7 +334,8 @@ fingerprint = "192a5b0a59453b3b"
 verdict = "false-alarm"
 why = "The test checks the open to-dos limit from security-notes.md is enforced, which is a business limit implemented per the documentation (V2.3.2); it is phrased in different words from the requirement's text."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040f4fa109198b3b71ed0af420f76be37c9339c130e62d0b25574e83827d24cdff3d975c36a87b6025eb6eb86feb84a7301f27e97a2ad7c20a69eb42e3470e3ad0b"
 
 [[finding-review]]
 rule = "tests.name-does-not-match-requirement"
@@ -326,7 +344,8 @@ fingerprint = "bb25c80f6c57cae9"
 verdict = "false-alarm"
 why = "The test checks that a password alone does not sign someone in when they have an authenticator app, which is multi-factor sign-in (V6.3.3); it is phrased in different words from the requirement's text."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d65643235353139000000409caebb2dbb7161a146aa364393b9716ca01edfe839a52b0c49834696de416139650c1a8dc6ac596e124db34d63dc0e14577590205b6314d2bd1f8a103f19e00e"
 
 [[finding-review]]
 rule = "tests.name-does-not-match-requirement"
@@ -335,7 +354,8 @@ fingerprint = "98901b5f55f4a6d9"
 verdict = "false-alarm"
 why = "The test checks people are identified by the ID token's sub claim, not their email, which is what the requirement asks (V10.5.2); it is phrased in different words from the requirement's text."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040d885d410708b0ebe87c41afd9f7b328effd753c9cecb4426ab9577e97abb8439eb8e20823700a6cf95d3199d8983bfb6b735a4910718f59647602b4725d6d604"
 
 [[finding-review]]
 rule = "tests.name-does-not-match-requirement"
@@ -344,7 +364,8 @@ fingerprint = "72311620cd1a7f19"
 verdict = "false-alarm"
 why = "The test checks a provider's answer is refused in a browser other than the one that started the sign-in, which is binding to the user agent session (V10.1.2); it is phrased in different words from the requirement's text."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d65643235353139000000403270d44195e73d633330123de04f37214728503210a7c82982056be3cb852dda6629f7614f69506acb2831211f165134f67ccc70a97a71b1758af0f3eac59300"
 
 [[finding-review]]
 rule = "tests.name-does-not-match-requirement"
@@ -353,7 +374,8 @@ fingerprint = "6e9419415befed52"
 verdict = "false-alarm"
 why = "The test checks an answer naming a different issuer is refused, which is the mix-up defence the requirement describes (V10.2.2); it is phrased in different words from the requirement's text."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d656432353531390000004015854515aae669f77735c50d78c5732c0b43e0904ec377baaf8d9c9bbbc5702461869dec0b9105e78501068501f6a34a1a9e3eab265c38107ac99630a4ac1d00"
 
 [[finding-review]]
 rule = "tests.name-does-not-match-requirement"
@@ -362,13 +384,22 @@ fingerprint = "e8da11a2d9d38a26"
 verdict = "false-alarm"
 why = "The test checks only an admin can promote, enforced by the server whatever the browser sends, which is server-side authorization (V8.3.1); it is phrased in different words from the requirement's text."
 by = "owner"
-on = "2026-10-03"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040902e72988228604a39b4b3cdd593ca3e72b879118e79af45994cb167a1e035f615b0ace19c81cba077a7ca119b27fe5224e0aa4be0d1fff54a3486f365b3670b"
 
 [[finding-review]]
 rule = "ast.file-path-from-value"
 file = "tests/test_requestlog.py"
-fingerprint = "ee5e98208be38327"
+fingerprint = "v2-18356e41ef7950ac"
 verdict = "false-alarm"
 why = "Test-only: opens the app's own Procfile at the repository root, found from the test file's location, to check it starts serve.py; nothing from a request or user reaches the path."
-by = "ai-tool"
-on = "2026-10-03"
+by = "owner"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d65643235353139000000400386516929ed2c8ab6c7ab0cd4a7a4af291f331554b80e6e40f9ae50c0023f02249d9aa87f7f4a865f244030158b2c39cf9958a9a67a98a67974b955db13f901"
+
+[scope-review]
+audience = "customers"
+categories = ["contact", "credentials", "children", "other-personal"]
+by = "owner"
+on = "2026-10-10"
+seal = "v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d65643235353139000000406fc352ff7d626e2ef3f47ff84c3e8e1eac93930e9613a88f52a1e37e9b038fc99a94a9a386d84ae48b9563f308c8beca1c40243d36fb247375bbe6858e70cf09"
