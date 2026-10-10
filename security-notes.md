@@ -17,6 +17,7 @@ Start each answer with a line saying who wrote it: `Written by: owner` for your 
 - securevibe.toml says this app holds: contact, credentials, children, and other-personal.
 
 Written by: owner
+Sealed by sv review: v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d656432353531390000004051f7c1e497a8b1fefb498eaae477e18ec59e0c218657a8ebc3d553d59e25105a7ac756f43c429c2b6dbe918686883effde8906d171d2e20b01b5f68ea167ab0f
 
 The AI coding tool listed the rules in the code; on 2026-10-03 the owner confirmed they match what they want.
 
@@ -33,6 +34,7 @@ The AI coding tool listed the rules in the code; on 2026-10-03 the owner confirm
 *V2.1.2 asks for this: Verify that the application's documentation defines how to validate the logical and contextual consistency of combined data items, such as checking that suburb and ZIP code match.*
 
 Written by: owner
+Sealed by sv review: v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040ff075080fba33ce3def16bc3d5308922e10806fd31bff55921b3790ac16bcb3323b2248c672fc1fcc016fff86f80165b88956bf3040d62ebc6adc8f30cc8ea00
 
 The AI coding tool listed the rules in the code; on 2026-10-03 the owner confirmed they match what they want.
 
@@ -49,6 +51,7 @@ The AI coding tool listed the rules in the code; on 2026-10-03 the owner confirm
 *V2.1.3 asks for this: Verify that expectations for business logic limits and validations are documented, including both per-user and globally across the application.*
 
 Written by: owner
+Sealed by sv review: v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040cbba78528218b3b597a96a96494db67941583458806a6c6b60ca133d3800d778e185af651abd638877d22491fc8807761e962d022b525ba318431ff6fe66470e
 
 Decided by the owner on 2026-10-03. The numbers are in familyhub/limits.py; past a limit, the app refuses with a message saying so and saves nothing.
 
@@ -69,6 +72,7 @@ Decided by the owner on 2026-10-03. The numbers are in familyhub/limits.py; past
 - securevibe.toml says people sign in to this app.
 
 Written by: owner
+Sealed by sv review: v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d65643235353139000000408a16a0227a825f62c6dbe301634c455123bb8ca9c7b25493b60cc2182e5bf002af79a63d0d3d3b8eaf8e4d4962050f35edf4301ab65e1faf468e9f912d68f203
 
 The owner decided these on 2026-10-03; the AI coding tool wrote them up and built them.
 
@@ -89,6 +93,7 @@ The owner decided these on 2026-10-03; the AI coding tool wrote them up and buil
 - This app is called Family Hub.
 
 Written by: owner
+Sealed by sv review: v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040fb2ed9d833a533964fd72528af43f02703d5eedbf0e3c90741c9dbb101bec7164755091413b52dce37a9a1e075915fc809e6ae8107b1ed071b6f13f5459b710c
 
 The AI coding tool listed the words the code refuses; on 2026-10-03 the owner confirmed the list is right.
 
@@ -109,6 +114,7 @@ A new password is refused if it contains, in any capitalization:
 - securevibe.toml says people sign in to this app.
 
 Written by: owner
+Sealed by sv review: v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040eaf9a9532b622c6c4ceaf7f6960690d8c1fa5836bae4932137d2b76530bbb21fe2e76d7723e375069aea571427a09515aed567da6319252fcb7eacf7b0b1990f
 
 The owner decided the pathways and the four choices for provider sign-in on 2026-10-03; the AI coding tool wrote them up and built them.
 
@@ -136,6 +142,7 @@ The owner decided the pathways and the four choices for provider sign-in on 2026
 - securevibe.toml says people sign in to this app.
 
 Written by: owner
+Sealed by sv review: v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040a4188fe562ace5fc09f53ffdf9168a5f8450f37c99b9179084e66df37c9959039ef08aaee00a5aff6256a766df8b2e745e3ae9a34f9347815498a5906c89680f
 
 The AI coding tool described the timeouts in the code; on 2026-10-03 the owner confirmed they are right for this app.
 
@@ -155,6 +162,7 @@ The AI coding tool described the timeouts in the code; on 2026-10-03 the owner c
 - securevibe.toml says people sign in to this app.
 
 Written by: owner
+Sealed by sv review: v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d656432353531390000004001c6a67ebf8038d33e4450a1cf7d4897792546fc3335a04820dbac114b9dd75161e1a66c40bd8310379b441ba77c657e8d71f6465b50f6589b3e3a5f5d06540f
 
 Decided by the owner on 2026-10-03.
 
@@ -173,6 +181,7 @@ Decided by the owner on 2026-10-03.
 - securevibe.toml says this app holds: contact, credentials, children, and other-personal.
 
 Written by: owner
+Sealed by sv review: v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040a4637b9b45f623cfa5db209806bbea4052f7b5cf38e874f8c2427c4d62f04437eb6f90f8cf0b4bfa133709c53fc41f8a634fa63dc85ae6949c2666eab315d808
 
 The AI coding tool listed the rules in the code; on 2026-10-03 the owner confirmed they match what they want.
 
@@ -194,6 +203,7 @@ The AI coding tool listed the rules in the code; on 2026-10-03 the owner confirm
 - securevibe.toml says this app holds: contact, credentials, children, and other-personal.
 
 Written by: owner
+Sealed by sv review: v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040bc803d66e9940b552cb2a8c3759b8848ab71d11d615fdfc1d644588a8961cf13a1ae60b7f910ad4fef065a5d422d67c5766ff38822780b48439082757cb07a06
 
 The AI coding tool listed the field rules in the code; on 2026-10-03 the owner confirmed them and asked for the changes marked below.
 
@@ -211,6 +221,7 @@ The AI coding tool listed the field rules in the code; on 2026-10-03 the owner c
 *V11.1.1 asks for this: Verify that there is a documented policy for management of cryptographic keys and a cryptographic key lifecycle that follows a key management standard such as NIST SP 800-57. This should include ensuring that keys are not overshared (for example, with more than two entities for shared secrets and more than one entity for private keys).*
 
 Written by: owner
+Sealed by sv review: v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d65643235353139000000403d7d5b443fd95aad719c4e62e841d105330fec1071da7506bee20a894c74920218eb58ed303f9ec2f64c2608b7ab6ab403f24a336bf517f56e77e9940f10ea03
 
 Decided by the owner on 2026-10-03.
 
@@ -231,6 +242,7 @@ The keys this covers, as the app uses them:
 *V11.1.2 asks for this: Verify that a cryptographic inventory is performed, maintained, regularly updated, and includes all cryptographic keys, algorithms, and certificates used by the application. It must also document where keys can and cannot be used in the system, and the types of data that can and cannot be protected using the keys.*
 
 Written by: owner
+Sealed by sv review: v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040a9f60d2ffe96f0235233d95f9fe3721e5a79142b137fc22d33711820ca8b5beffa13b7d817b115fa6a5a890a2800107effdd3f32458a9d648583dac9d7935709
 
 The AI coding tool listed what the code uses; on 2026-10-03 the owner confirmed the list.
 
@@ -250,6 +262,7 @@ The AI coding tool listed what the code uses; on 2026-10-03 the owner confirmed 
 *V13.1.1 asks for this: Verify that all communication needs for the application are documented. This must include external services which the application relies upon and cases where an end user might be able to provide an external location to which the application will then connect.*
 
 Written by: owner
+Sealed by sv review: v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d65643235353139000000409273620dc7767b4a229da7f9fa03a3054deaac645ca2c21c4c3c333624dd9062a0b2763aada3ae2523f71858d11b1f8aaeffce2dc148d0b79e946eff639e1d0a
 
 The AI coding tool listed what the code talks to; on 2026-10-03 the owner confirmed the list is right.
 
@@ -271,6 +284,7 @@ The AI coding tool listed what the code talks to; on 2026-10-03 the owner confir
 - securevibe.toml says this app holds: contact, credentials, children, and other-personal.
 
 Written by: owner
+Sealed by sv review: v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040b2fc402633067a2f783ee5fc12140fdd14be0d87403709d409c67bc1c13e16870864e9716c6a7d01d7738cd097261037eda4f0357b3d7492e6eee1572e70700a
 
 Decided by the owner on 2026-10-03; the AI coding tool wrote it up and built the archive, log and backup changes. Authenticator data added with the owner's approval on 2026-10-03.
 
@@ -293,6 +307,7 @@ The data: email addresses and names (contact); password hashes, linked Google/Ap
 - This app installs packages with Python (requirements.txt).
 
 Written by: owner
+Sealed by sv review: v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d6564323535313900000040cac6ccdea15b2a34925244e08d78092dea3b294b8dda771b9d0377875ef8dfee6509c1f62451889c2aa22533a19280a04e573b9382b88cb0d7ef882ff081c702
 
 Decided by the owner on 2026-10-03.
 
@@ -306,6 +321,7 @@ Decided by the owner on 2026-10-03.
 *V15.1.3 asks for this: Verify that the application documentation identifies functionality which is time-consuming or resource-demanding. This must include how to prevent a loss of availability due to overusing this functionality and how to avoid a situation where building a response takes longer than the consumer's timeout. Potential defenses may include asynchronous processing, using queues, and limiting parallel processes per user and per application.*
 
 Written by: owner
+Sealed by sv review: v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d65643235353139000000401486ad4af5bc6129dc15f52f62726c6bc2aeb720128dc25381404638207da6fbf990066712449b9ba4826ff80ec347e4aa538f5834df21556984bc7c5ae53409
 
 The AI coding tool listed the heavy parts of the code; on 2026-10-03 the owner chose to keep the existing defenses.
 
@@ -323,6 +339,7 @@ The time- or resource-demanding parts: password hashing (scrypt, about 0.1 s and
 *V16.1.1 asks for this: Verify that an inventory exists documenting the logging performed at each layer of the application's technology stack, what events are being logged, log formats, where that logging is stored, how it is used, how access to it is controlled, and for how long logs are kept.*
 
 Written by: owner
+Sealed by sv review: v3:d621a1ee0328390d:53534853494700000001000000330000000b7373682d6564323535313900000020ed5e9c90f3888d3189375f9ab9140ad00104eae701f7976a49fd5a8692750a4500000011736563757265766962652d7265766965770000000000000006736861353132000000530000000b7373682d65643235353139000000403126f8a406980c9c0439dbe29531293c2359174929058fc8bc4ccf11c38864a179252e1b4f2c3bfcdd94857671015bb7fde8131a48d86d39ffcaf8a660cff901
 
 Decided by the owner on 2026-10-03; the AI coding tool built it (familyhub/audit.py).
 
