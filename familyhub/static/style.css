@@ -99,6 +99,11 @@ a.button.secondary { background: none; color: var(--accent); }
 .codes { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: 0.25rem 1rem; }
 code { font-family: ui-monospace, Menlo, monospace; }
 
+/* Phones: the nav gets a row of its own, so its links run across instead of stacking. */
+@media (max-width: 40rem) {
+  .top nav { order: 3; flex: 1 1 100%; }
+}
+
 /* Touch screens: make tap targets at least 44px tall, the size Apple recommends. */
 @media (pointer: coarse) {
   button, a.button, .top nav a { min-height: 2.75rem; display: inline-flex; align-items: center; }
